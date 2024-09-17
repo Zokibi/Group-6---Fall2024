@@ -26,3 +26,31 @@ We are creating a software product that allows servers and host to easily manage
 
 ### Prerequisties
 - Python https://www.python.org/downloads/
+
+STEP 1: Clone Repository
+   
+```sh
+https://github.com/Zokibi/Group-6---Fall2024.git
+```
+
+STEP 2: Navigate to the project folder in terminal
+
+** This folder should contain the manage.py **
+
+```sh
+# This is an example. Your path may look different
+cd c:/your-github-folder/Table Management Software/TableManagementSoftware
+```
+
+STEP 3: Start the Django server from the command line
+
+```sh
+python manage.py runserver
+```
+
+STEP 4: This will run some code and print out a few statements. Look for the statement that contains the following code address. Ctrl + left-click on the link to open it
+
+```sh
+Starting development server at http://127.0.0.1:8000/
+```
+
