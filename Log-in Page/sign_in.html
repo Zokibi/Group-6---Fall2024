@@ -3,27 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Group 6 Table Management System</title>
+    <title>Group 6 Table Management System Sign-In</title>
     <link rel="stylesheet" href="sign_in.css" />
   </head>
   <body>
-    <div class="wrapper">
+    <div class="container">
       <form>
-        <div class="input-elements">
-          <label for="username">Username:</label>
-          <input type="text" id="username" placeholder="Username" />
+        <h1>Log In</h1>
+        <div class="input-field">
+          <input type="text" id="username" placeholder=" Username" required />
         </div>
-        <div class="input-elements">
-          <label for="password">Password:</label>
+        <div class="input-field">
           <input
             type="password"
             id="password"
-            placeholder="Password"
+            placeholder=" Password"
             required
           />
         </div>
+        <div id="remember-checkbox">
+          <label for="remember">Remember me</label>
+          <input type="checkbox" id="remember" />
+        </div>
+        <div class="input-field">
+          <input type="submit" value="Log In" id="log-in_button" />
+        </div>
         <div>
-          <button>Sign In</button>
+          <p>Need an account? <a href="sign_up.html">Sign Up</a></p>
         </div>
       </form>
     </div>
