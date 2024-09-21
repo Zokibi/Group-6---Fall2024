@@ -1,5 +1,30 @@
 {% extends "base.html" %} {% block title %} Login Page {% endblock %}
 {% block content %}
-<p>This is the login Page</p>
+<div class="wrapper-login">
+    <form>
+      <h1>Log In</h1>
+      <div class="input-field">
+        <input type="text" id="username" placeholder=" Username" required />
+      </div>
+      <div class="input-field">
+        <input
+          type="password"
+          id="password"
+          placeholder=" Password"
+          required
+        />
+      </div>
+      <div id="remember-checkbox">
+        <label for="remember">Remember me</label>
+        <input type="checkbox" id="remember" />
+      </div>
+      <div class="input-field">
+        <input type="submit" value="Log In" id="log-in_button" />
+      </div>
+      <div>
+        <p>Need an account? <a href="signup/">Sign Up</a></p>
+      </div>
+    </form>
+  </div>
 {% endblock %} 
 
