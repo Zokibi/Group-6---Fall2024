@@ -9,3 +9,6 @@ def sign_in_view(request):
 
 def sign_up_view(request):
     return render(request, "sign_up.html") #renders the sign_up template in templates folder
+
+def about_view(request):
+    return render(request, "about.html")
