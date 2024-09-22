@@ -1,5 +1,43 @@
 {% extends "base.html" %} {% block title %} Login Page {% endblock %}
 {% block content %}
-<p>This is the login Page</p>
+<div class="wrapper-login">
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+      <h1>Log In</h1>
+      <div class="input-field">
+        <input type="text" id="username" placeholder=" Username" required />
+      </div>
+      <div class="input-field">
+        <input
+          type="password"
+          id="password"
+          placeholder=" Password"
+          required
+        />
+      </div>
+      <div id="remember-checkbox">
+        <input type="checkbox" id="remember" />
+        <label for="remember" id="remember-checkbox-label">Remember me</label>
+      </div>
+      <div class="input-field">
+        <input type="submit" value="Log In" id="log-in_button" />
+      </div>
+      <div>
+        <p>Need an account? <a href="signup/">Sign Up</a></p>
+      </div>
+    </form>
+  </div>
+
+<script>
+document.getElementById("log-in_button").addEventListener("click", function(event) {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+    
+    if (!username || !password) {
+        event.preventDefault();
+        alert("Both username and password are required!");
+    }
+});
+</script>
 {% endblock %} 
 
