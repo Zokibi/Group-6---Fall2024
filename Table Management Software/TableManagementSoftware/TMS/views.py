@@ -1,7 +1,10 @@
 from django.shortcuts import render, HttpResponse
 
 # Create your views here.
-def home(request):
+def home_view(request):
+    return render(request, "home.html") # renders the home template in templates folder
+
+def login_view(request):
     return render(request, "login.html") # renders the login template in templates folder
 
 def sign_in_view(request):
