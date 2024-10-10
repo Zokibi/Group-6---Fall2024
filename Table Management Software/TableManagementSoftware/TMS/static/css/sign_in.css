@@ -69,14 +69,22 @@ h1 {
   color: white;
   align-items: center;
 }
+.form-input {
+  height: 60px;
+  width: 600px;
+}
 
-#log-in_button {
+
+button {
   width: 600px;
   height: 60px;
   font-size: 40px;
   background-color: white;
   color: black;
   margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 label {
@@ -141,7 +149,7 @@ p {
     font-size: 20px;
   }
 
-  #log-in_button {
+  button {
     width: 90vw;
     height: 60px;
     font-size: 40px;

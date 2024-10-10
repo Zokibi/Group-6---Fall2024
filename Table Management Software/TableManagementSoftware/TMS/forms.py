@@ -1,4 +1,3 @@
-from django.forms import TextInput, EmailInput , PasswordInput
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from django.contrib.auth.models import User
@@ -8,19 +7,23 @@ class CreateUserForm(UserCreationForm):
             super().__init__(*args, **kwargs)
             self.fields['username'].widget.attrs.update({
                  'placeholder': ' Enter Username',
-                 'class': 'form-input'
+                 'class': 'form-input',
+                 'style': 'height: 60px; width: 600px; background-color: transparent; border: 1px white solid; border-radius: 5px; font-size: 20px; color: white'
             })
             self.fields['email'].widget.attrs.update({
                  'placeholder': ' Enter Email',
-                 'class': 'form-input'
+                 'class': 'form-input',
+                 'style': 'height: 60px; width: 600px; background-color: transparent; border: 1px white solid; border-radius: 5px; font-size: 20px; color: white'
             })
             self.fields['password1'].widget.attrs.update({
                  'placeholder': ' Enter Password',
-                 'class': 'form-input'
+                 'class': 'form-input',
+                 'style': 'height: 60px; width: 600px; background-color: transparent; border: 1px white solid; border-radius: 5px; font-size: 20px; color: white'
             })
             self.fields['password2'].widget.attrs.update({
                  'placeholder': ' Confirm Password',
-                 'class': 'form-input'
+                 'class': 'form-input',
+                 'style': 'height: 60px; width: 600px; background-color: transparent; border: 1px white solid; border-radius: 5px; font-size: 20px; color: white'
             })
     class Meta:
         model = User
