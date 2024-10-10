@@ -31,7 +31,7 @@ body {
   justify-content: center;
 }
 .wrapper-signup {
-  height: 800px;
+  height: 900px;
   width: 700px;
   background-color: rgb(24, 24, 24);
   border: solid white 1px;
@@ -74,7 +74,6 @@ h1 {
   width: 600px;
 }
 
-
 button {
   width: 600px;
   height: 60px;
@@ -98,6 +97,10 @@ input[type="checkbox"] {
   margin-right: 20px;
   float: left;
 }
+.name-input {
+  height: 60px;
+  width: 295px;
+}
 
 #remember-checkbox {
   margin-top: 20px;
@@ -111,7 +114,10 @@ p {
   color: white;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 700px), (max-height: 1000px) {
+  html {
+    width: 100vw;
+  }
   body {
     background-image: none;
     background-color: rgb(24, 24, 24);
@@ -135,23 +141,26 @@ p {
   .input-field {
     margin: 10px;
     height: 50px;
-    width: 90vw;
-    display: inline-block;
+    width: 100vw;
+    display: flex;
     margin-bottom: 50px;
     color: white;
     align-items: center;
   }
   input {
-    height: 60px;
-    width: 90vw;
+    flex: 1;
     background: transparent;
     color: white;
     font-size: 20px;
+    width: 100%;
   }
-
+  .name-input .form-input{
+    width: 100vw;
+    flex: 1;
+    box-sizing: border-box;
+  }
   button {
-    width: 90vw;
-    height: 60px;
+    flex: 1;
     font-size: 40px;
     background-color: white;
     color: black;
