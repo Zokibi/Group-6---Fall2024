@@ -1,15 +1,9 @@
 from django.db import models
+from TMS.models import employeeList, Table, Order
 
 # Create your models here.
 
-serverList = {
-    "100": "Charne Robinson",
-    "200": "Jacob Sparks",
-    "300": "Daryna Kozlova",
-    "400": "Isaiah Dillard",
-    "500": "Anthony Gilliam",
-}
-
 class Server(models.Model):
-    employeeSelection = models.CharField(max_length=10, choices=serverList)
-    pass
+    server = models.CharField(max_length=5, choices=employeeList)
+    orders = models.ManyToManyField(Order)
+    tables = models.ManyToManyField(Table)
