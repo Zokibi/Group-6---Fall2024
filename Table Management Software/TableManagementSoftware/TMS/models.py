@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator
+from decimal import Decimal
 
 # Create your database models here.
 
@@ -6,27 +8,30 @@ class EmployeeClockin(models.Model):
     Server = models.CharField(max_length=200)
     clockin = models.BooleanField(default=False)
     
-class User(models.Model):
-    userID = models.CharField(max_length=30)
-    username = models.CharField(max_length=30)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    role = models.CharField(max_length=30)
-
 class Table(models.Model):
-    tableID = models.CharField(primary_key=True, max_length=30)
-    chairs = models.IntegerField
+    tableID = models.AutoField(primary_key=True)
+    chairs = models.PositiveIntegerField(editable=True, default=0)
     table_status = models.CharField(max_length=30)
 
 class Order(models.Model):
-    orderID = models.CharField(primary_key=True, max_length=30)
-    tableID = models.CharField(max_length=30)
+    orderID = models.AutoField(primary_key=True)
+    Table.tableID
     order_status = models.CharField(max_length=30)
 
+class TableOrder(models.Model):
+    table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+
 class Item(models.Model):
-    itemID = models.CharField(primary_key=True, max_length=30)
+    itemID = models.AutoField(primary_key=True)
     itemName = models.CharField(max_length=30)
-    price = models.FloatField
+    price = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
+    order = models.ManyToManyField(Order, through='OrderItem')
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
+    item_quantity = models.IntegerField
 
 
 
