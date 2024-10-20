@@ -2,6 +2,7 @@ from typing import Any
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.contrib.auth.models import User
+from .models import Restaurant
 
 class CreateUserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -57,4 +58,8 @@ class CreateLoginForm(AuthenticationForm):
            model = User
            fields = ['username' , 'password']
 
-        
+class SaveRestaurantProfile(forms.ModelForm):
+      class Meta:
+            model = Restaurant
+            fields = ['name', 'numTables']
+              

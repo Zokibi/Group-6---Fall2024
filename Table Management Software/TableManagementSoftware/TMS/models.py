@@ -7,20 +7,23 @@ from decimal import Decimal
 class EmployeeClockin(models.Model):
     Server = models.CharField(max_length=200)
     clockin = models.BooleanField(default=False)
+
+class Restaurant(models.Model):
+    name = models.CharField(max_length=30)
+    numTables = models.PositiveIntegerField(editable=True, default=0)
+
     
 class Table(models.Model):
     tableID = models.AutoField(primary_key=True)
+    guests = models.PositiveIntegerField(editable=True, default=0)
     chairs = models.PositiveIntegerField(editable=True, default=0)
     table_status = models.CharField(max_length=30)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 class Order(models.Model):
     orderID = models.AutoField(primary_key=True)
-    Table.tableID
+    table = models.ForeignKey(Table, on_delete=models.CASCADE)
     order_status = models.CharField(max_length=30)
-
-class TableOrder(models.Model):
-    table = models.ForeignKey(Table, on_delete=models.CASCADE, null=True)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
 
 class Item(models.Model):
     itemID = models.AutoField(primary_key=True)
@@ -32,8 +35,5 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
     item_quantity = models.IntegerField
-
-
-
 
 

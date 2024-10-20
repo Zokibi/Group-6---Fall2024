@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock styles %} 
+{% block title %} 
+Menu Page 
+{% endblock %}
+{% block content %}
+
+<div id="table_functions">
+</div>
+<table>
+    <thead>
+        <th colspan="2"><h3>Menu Items</h3></th>
+        <tr>
+            <th class="column_headers">Name</th>
+            <th class="column_headers">Price</th>
+        </tr>
+    </thead>
+    {% for item in item %}
+    <tr>
+        <td>{{item.itemName}}</td>
+        <td>${{item.price}}</td>
+    </tr>       
+    {% endfor %}
+</table>
+
+{% endblock %}

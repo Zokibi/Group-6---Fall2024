@@ -1,0 +1,33 @@
+body{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(24, 24, 24);
+}
+.container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th{
+    text-align: center;
+}
+.column_headers {
+    text-align: center;
+}
+
+td{
+    width: 300px;
+}
+
+table {
+    background-color: white;
+}

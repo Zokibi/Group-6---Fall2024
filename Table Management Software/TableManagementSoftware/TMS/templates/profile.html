@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+{% endblock styles %} 
+{% block title %} 
+Restaurant Profile Page 
+{% endblock %}
+{% block content %}
+
+<div class="wrapper-login">
+    <form method="POST" action="{% url 'profile' %}">
+        {{ restaurants }}
+    </form>
+  </div>
+
+{% endblock %}

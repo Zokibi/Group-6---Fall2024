@@ -5,7 +5,10 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login
 
-from .forms import CreateUserForm, CreateLoginForm
+from .forms import CreateUserForm, CreateLoginForm, SaveRestaurantProfile
+
+from .models import *
+
 
 # Create your views here.
 def home(request):
@@ -39,3 +42,12 @@ def signup_view(request):
 
 def about_view(request):
     return render(request, "about.html")
+
+def menu_view(request):
+    item  = Item.objects.all()
+    return render(request, "menu.html", {'item': item})
+
+def profile_view(request):
+    form = SaveRestaurantProfile()
+    restuarants = Restaurant.objects.all()
+    return render(request, 'profile.html', {'restaurants': restuarants})
