@@ -1,4 +1,9 @@
-{% extends "base.html" %} {% block title %} Login Page {% endblock %}
+{% extends "base.html" %} 
+{% load static %}
+{% block title %} Login Page {% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+{% endblock styles %}
 {% block content %}
 <div class="wrapper-about">
     <h1>Objective</h1>
@@ -20,4 +25,4 @@
     </ul>
     </div>
 
-{% endblock %}
+{% endblock content %}

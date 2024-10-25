@@ -15,13 +15,15 @@ def home(request):
     return render(request, "login.html") # renders the login template in templates folder
 
 def login_view(request):
+    form = CreateLoginForm()
+    
     if request.method == 'POST':
         form = CreateLoginForm(data = request.POST)
         if form.is_valid():
             login(request, form.get_user())
             return redirect("about")
-    else:
-        form = CreateLoginForm()
+        else:
+            form = CreateLoginForm()
     return render(request, 'login.html', {'form': form})
 
 def signup_view(request):
@@ -33,11 +35,9 @@ def signup_view(request):
             login(request, form.save())
             user = form.cleaned_data.get('username')
             messages.success(request, 'Account created for user ' + user)
-
-        # # Log the user in and redirect to home page
-        
-        return redirect('about')  # Adjust this to redirect to your desired page
-
+            return redirect("about")
+        else:
+            form = CreateUserForm()
     return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request 
 
 def about_view(request):

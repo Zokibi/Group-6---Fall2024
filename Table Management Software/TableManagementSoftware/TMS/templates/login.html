@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% load static %}
-
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+{%endblock styles%}
 {% block title %} 
 Login Page 
 {% endblock %}
