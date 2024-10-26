@@ -1,9 +1,0 @@
-# file to connect the login view to a URL path
-# urls.py
-from django.urls import path
-from .views import login_view
-
-urlpatterns = [
-    path('login/', login_view, name='login'),  # Add the login view to the URLs
-    path('home/', your_home_view, name='home'),  # Home view for redirection after login
-]

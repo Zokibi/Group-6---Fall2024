@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import login
+from django.contrib.auth import login, logout
 
 from .forms import CreateUserForm, CreateLoginForm, SaveRestaurantProfile
 
@@ -21,6 +21,7 @@ def login_view(request):
         form = CreateLoginForm(data = request.POST)
         if form.is_valid():
             login(request, form.get_user())
+            messages.success(request, "Login successful!")
             return redirect("about")
         else:
             form = CreateLoginForm()
@@ -39,6 +40,10 @@ def signup_view(request):
         else:
             form = CreateUserForm()
     return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request 
+
+def logout_view(request):
+    logout(request)
+    return redirect('about')
 
 def about_view(request):
     return render(request, "about.html")

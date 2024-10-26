@@ -7,5 +7,6 @@ urlpatterns = [
     path("signup/", views.signup_view, name="signup"), # will call the sign_up_view function in views
     path("about/", views.about_view, name="about"),
     path("menu/", views.menu_view, name="menu"),
-    path("profile/", views.profile_view, name="profile")
+    path("profile/", views.profile_view, name="profile"),
+    path('logout/', views.logout_view, name="logout"),
 ]

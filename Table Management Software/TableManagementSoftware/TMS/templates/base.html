@@ -38,16 +38,21 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
           </li>
-          <div class="nav-user">
-            <li class="nav-item">
-              <a href="{% url 'login' %}" class="nav-link">Log In</a>
-            </li>
-            <li class="nav-item">
-              <a href="{% url 'signup' %}" class="nav-link">Sign Up</a>
-            </li>
-          </div>
         </ul>
-          
+        <ul class="navbar-nav nav-user">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'logout' %}" class="nav-link">Log Out</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a href="{% url 'login' %}" class="nav-link">Log In</a>
+          </li>
+          <li class="nav-item">
+            <a href="{% url 'signup' %}" class="nav-link">Sign Up</a>
+          </li>
+          {% endif %}
+        </ul>
       </div>
     </nav>
     <div class="container">{% block content %} {% endblock %}</div>
