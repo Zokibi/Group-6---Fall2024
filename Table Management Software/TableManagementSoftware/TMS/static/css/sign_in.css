@@ -37,6 +37,10 @@ body {
   width: 700px;
   padding: 10px;
 }
+.wrapper-home {
+  height: 700px;
+  width: 700px;
+}
 form {
   height: 100%;
   width: 100%;
@@ -89,6 +93,10 @@ input[type="checkbox"] {
 p {
   color: white;
 }
+.wrapper-about>ul, .wrapper-about>h2 {
+  color: white;
+  margin-left: right;
+}
 
 @media (max-width: 700px), (max-height: 1000px) {
   html {
@@ -98,7 +106,7 @@ p {
     background-image: none;
     background-color: rgb(24, 24, 24);
   }
-  .wrapper-login, .wrapper-signup, .wrapper-about {
+  .wrapper {
     width: 100vw;
     height: 90vh;
     background-color: rgb(24, 24, 24);
@@ -106,6 +114,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
   form {
     height: 90vh;

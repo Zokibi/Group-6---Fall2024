@@ -11,6 +11,11 @@
     display: flex;
     justify-content: space-between;
 }
+.nav-info{
+    display: flex;
+    flex-direction: row;
+
+}
 
 @media (max-width: 992px) {
     .navbar{
