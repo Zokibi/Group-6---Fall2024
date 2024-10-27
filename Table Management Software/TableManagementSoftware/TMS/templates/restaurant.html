@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+<link rel="stylesheet" href="{% static 'css/sign_in.css' %}"
+{% endblock styles %} 
+{% block title %} 
+Restaurant Page 
+{% endblock %}
+{% block content %}
+
+<div id="display_restaurants">
+    <table>
+        <thead>
+            <th colspan="2"><h3>Restaurants Managed on this Application</h3></th>
+            <tr>
+                <th class="column_headers">Name</th>
+                <th class="column_headers">Number of Tables</th>
+            </tr>
+        </thead>
+        {% for restaurant in restuarants %}
+        <tr>
+            <td>{{restaurant.name}}</td>
+            <td>${{item.numTables}}</td>
+        </tr>       
+        {% endfor %}
+    </table>
+</div>
+
+<div id="add_restaurants">
+    <form method="POST" action="{% url 'restaurant' %}">
+        {% csrf_token %}
+        Restaurant Name: <input type="text">
+        Number of Tables: <input type="text">
+    </form>
+</div>
+
+
+{% endblock %}

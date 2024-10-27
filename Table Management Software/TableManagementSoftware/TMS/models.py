@@ -11,7 +11,6 @@ class EmployeeClockin(models.Model):
 class Restaurant(models.Model):
     name = models.CharField(max_length=30)
     numTables = models.PositiveIntegerField(editable=True, default=0)
-
     
 class Table(models.Model):
     tableID = models.AutoField(primary_key=True)

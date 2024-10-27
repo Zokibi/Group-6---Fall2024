@@ -66,7 +66,7 @@ def menu_view(request):
     item  = Item.objects.all()
     return render(request, "menu.html", {'item': item})
 
-def profile_view(request):
+def restaurant_view(request):
     form = SaveRestaurantProfile()
     restuarants = Restaurant.objects.all()
-    return render(request, 'profile.html', {'restaurants': restuarants})
+    return render(request, 'restaurant.html', {'restaurants': restuarants})

@@ -38,6 +38,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'menu' %}">Menu</a>
           </li>
+          <li class="nav-item">
+            <a href="{% url 'restaurant' %}" class="nav-link">Restaurant</a>
+          </li>
         </ul>
         <ul class="navbar-nav nav-user">
           {% if request.user.is_authenticated %}
