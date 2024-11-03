@@ -17,10 +17,10 @@ Restaurant Page
                 <th class="column_headers">Number of Tables</th>
             </tr>
         </thead>
-        {% for restaurant in restuarants %}
+        {% for restaurant in restaurants %}
         <tr>
             <td>{{restaurant.name}}</td>
-            <td>${{restaurant.numTables}}</td>
+            <td>{{restaurant.numTables}}</td>
         </tr>       
         {% endfor %}
     </table>
