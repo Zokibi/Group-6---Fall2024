@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 
-from .forms import CreateUserForm, CreateLoginForm, SaveRestaurantProfile
+from .forms import CreateUserForm, CreateLoginForm, SaveRestaurantProfile, AddMenuItem
 
 from .models import *
 
@@ -34,7 +34,6 @@ def signup_view(request):
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
 
-        
         username = request.POST['username']
         email = request.POST['email']
         password1 = request.POST['password1']
@@ -63,10 +62,27 @@ def about_view(request):
     return render(request, "about.html")
 
 def menu_view(request):
+    form = AddMenuItem()
     item  = Item.objects.all()
-    return render(request, "menu.html", {'item': item})
+
+    if request.method =='POST':
+        form = AddMenuItem(request.POST)
+        if form.is_valid():
+            form.save()
+            name = form.cleaned_data.get('itemName')
+            messages.success(request, name + ' added to the menu successfully')
+            return redirect(request.path)
+    return render(request, "menu.html", {'item': item, 'form': form})
 
 def restaurant_view(request):
     form = SaveRestaurantProfile()
-    restuarants = Restaurant.objects.all()
-    return render(request, 'restaurant.html', {'restaurants': restuarants})
+    restaurants = Restaurant.objects.all()
+
+    if request.method == 'POST':
+        form = SaveRestaurantProfile(request.POST)
+        if form.is_valid():
+            form.save()
+            name = form.cleaned_data.get('name')
+            messages.success(request, name + ' successfully added')
+            return redirect(request.path)
+    return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})

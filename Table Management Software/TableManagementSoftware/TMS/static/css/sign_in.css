@@ -1,11 +1,3 @@
-.container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 body {
   height: 100vh;
   width: 100vw;
@@ -41,6 +33,7 @@ body {
   height: 700px;
   width: 700px;
 }
+
 form {
   height: 100%;
   width: 100%;
@@ -95,7 +88,6 @@ p {
 }
 .wrapper-about>ul, .wrapper-about>h2 {
   color: white;
-  margin-left: right;
 }
 
 @media (max-width: 700px), (max-height: 1000px) {
