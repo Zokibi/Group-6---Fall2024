@@ -10,17 +10,11 @@ Menu Page
 
 <div class="wrapper-menu">
     <table>
-        <thead>
-            <th colspan="2"><h3>Menu Items</h3></th>
-            <tr>
-                <th class="column_headers">Name</th>
-                <th class="column_headers">Price</th>
-            </tr>
-        </thead>
+        <th colspan="2"><h3>Menu Items</h3></th>
         {% for item in item %}
         <tr>
-            <td>{{item.itemName}}</td>
-            <td>${{item.price}}</td>
+            <td class="left-column">{{item.itemName}}</td>
+            <td class="right-column">${{item.price}}</td>
         </tr>       
         {% endfor %}
     </table>
