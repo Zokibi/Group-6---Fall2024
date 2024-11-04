@@ -25,6 +25,7 @@ def login_view(request):
             messages.success(request, "Login successful!")
             return redirect("about")
         else:
+            messages.info(request, "Incorrect username or password")
             form = CreateLoginForm()
     return render(request, 'login.html', {'form': form})
 
