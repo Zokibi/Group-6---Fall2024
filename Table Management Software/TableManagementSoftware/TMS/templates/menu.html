@@ -8,7 +8,7 @@ Menu Page
 {% endblock %}
 {% block content %}
 
-<div class="wrapper-menu">
+<div class="wrapper-menu wrapper-alt menu-display">
     <table>
         <th colspan="2"><h3>Menu Items</h3></th>
         {% for item in item %}
@@ -19,7 +19,7 @@ Menu Page
         {% endfor %}
     </table>
 </div>
-<div class="wrapper-menu">
+<div class="wrapper-menu wrapper-alt">
     <form method="POST" action="{% url 'menu' %}">
         {% csrf_token %}
         <h1>Add Menu Item</h1>

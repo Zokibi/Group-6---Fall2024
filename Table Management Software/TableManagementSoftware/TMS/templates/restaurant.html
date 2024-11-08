@@ -8,24 +8,23 @@ Restaurant Page
 {% endblock title %}
 {% block content %}
 
-<div class="wrapper-restaurant wrapper">
+<div class="wrapper-restaurant wrapper-alt restaurant-display">
     <table>
-        <thead>
-            <th colspan="2"><h3>Restaurants List</h3></th>
-            <tr>
-                <th class="column_headers">Name</th>
-                <th class="column_headers">Number of Tables</th>
-            </tr>
-        </thead>
-        {% for restaurant in restaurants %}
+        <th colspan="2"><h3>Restaurants List</h3></th>
         <tr>
-            <td class="left-column">{{restaurant.name}}</td>
-            <td class="right-column">{{restaurant.numTables}}</td>
-        </tr>       
-        {% endfor %}
+            <th class="column_headers">Name</th>
+            <th class="column_headers">Number of Tables</th>
+        </tr>
+
+    {% for restaurant in restaurants %}
+    <tr>
+        <td class="left-column">{{restaurant.name}}</td>
+        <td class="right-column">{{restaurant.numTables}}</td>
+    </tr>       
+    {% endfor %}
     </table>
 </div>
-<div class="wrapper-restaurant wrapper">
+<div class="wrapper-restaurant wrapper-alt">
     <form method="POST" action="{% url 'restaurant' %}">
         {% csrf_token %}
         <h1>Add Restaurant</h1>
