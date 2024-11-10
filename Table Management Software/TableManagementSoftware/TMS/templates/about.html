@@ -1,6 +1,11 @@
-{% extends "base.html" %} {% block title %} Login Page {% endblock %}
+{% extends "base.html" %} 
+{% load static %}
+{% block title %} Login Page {% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+{% endblock styles %}
 {% block content %}
-<div class="wrapper-about">
+<div class="wrapper-about wrapper">
     <h1>Objective</h1>
     <p>We are creating a software product that allows servers and host to easily manage tables, 
     customers and all other information about restaurant. The softwaere will improve workflow 
@@ -16,8 +21,8 @@
         <li>Isaiah Dillard - Developer</li>
         <li>Jacob Sparks - Tester</li>
         <li>Yifan Gao - Writer</li>
-        <li>Anthony Gilliam</li>
+        <li>Anthony Gilliam - Project Manager</li>
     </ul>
     </div>
 
-{% endblock %}
+{% endblock content %}

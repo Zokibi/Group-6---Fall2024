@@ -1,43 +1,40 @@
-{% extends "base.html" %} {% block title %} Login Page {% endblock %}
+{% extends "base.html" %}
+
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+{%endblock styles%}
+{% block title %} 
+Login Page 
+{% endblock %}
+
 {% block content %}
-<div class="wrapper-login">
+<div class="wrapper-login wrapper">
     <form method="POST" action="{% url 'login' %}">
         {% csrf_token %}
       <h1>Log In</h1>
       <div class="input-field">
-        <input type="text" id="username" placeholder=" Username" required />
+        {{form.username}}
       </div>
       <div class="input-field">
-        <input
-          type="password"
-          id="password"
-          placeholder=" Password"
-          required
-        />
-      </div>
-      <div id="remember-checkbox">
-        <input type="checkbox" id="remember" />
-        <label for="remember" id="remember-checkbox-label">Remember me</label>
+        {{form.password}}
       </div>
       <div class="input-field">
-        <input type="submit" value="Log In" id="log-in_button" />
+        <button style="width:600px; height: 60px; font-size: 40px;">Log In</button>
       </div>
+      {% if messages %}
+      <div class="messages">
+      {% for message in messages %}
+        <p class="{{ message.tags }}" style="color: red; font-size: 20px;margin: 0;" >{{ message }}</p>
+      {% endfor %}
+      </div>
+      {% endif %}
       <div>
-        <p>Need an account? <a href="signup/">Sign Up</a></p>
+        <p>Need an account? <a href="{% url 'signup' %}">Sign Up</a></p>
       </div>
     </form>
   </div>
 
-<script>
-document.getElementById("log-in_button").addEventListener("click", function(event) {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-    
-    if (!username || !password) {
-        event.preventDefault();
-        alert("Both username and password are required!");
-    }
-});
-</script>
+
 {% endblock %} 
 

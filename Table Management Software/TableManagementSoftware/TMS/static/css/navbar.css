@@ -1,0 +1,34 @@
+.navbar {
+    background-color: rgb(24, 24, 24) !important;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    border-bottom: 1px white solid;
+}
+
+.navbar-collapse{
+    background-color: rgb(42, 41, 41);
+    display: flex;
+    justify-content: space-between;
+}
+.nav-info{
+    display: flex;
+    flex-direction: row;
+
+}
+
+@media (max-width: 992px) {
+    .navbar{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .navbar-collapse{
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+    }
+    .container{
+        margin-top: 100px;
+    }
+}
