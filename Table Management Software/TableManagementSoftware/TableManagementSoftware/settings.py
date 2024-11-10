@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'TMS',
+    'Order',
+    'Server',
+    'Table',
 ]
 
 MIDDLEWARE = [
