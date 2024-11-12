@@ -20,7 +20,7 @@ body {
   width: 700px;
 }
 .wrapper-signup {
-  height: 900px;
+  height: 800px;
   width: 700px;
   
 }
@@ -81,7 +81,7 @@ input[type="checkbox"] {
 }
 .name-input {
   height: 60px;
-  width: 295px;
+  width: 600px;
 }
 p {
   color: white;
