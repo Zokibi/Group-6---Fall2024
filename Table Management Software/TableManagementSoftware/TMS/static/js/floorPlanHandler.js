@@ -52,12 +52,13 @@ window.addEventListener('load', function() {
             Seats: ${table.seats}<br>
             Guests: ${table.guests}<br>
             Assigned waiter: ${table.waiter}<br>
-            Status: ${table.status}
+            Status: ${table.status}<br>
+            Timer: 
         `;
         
         tooltip.style.display = 'block';
-        tooltip.style.left = (mousePos.x + containerRect.left + 10) + 'px';
-        tooltip.style.top = (mousePos.y + containerRect.top + 10) + 'px';
+        tooltip.style.left = (mousePos.x + containerRect.left + 20) + 'px';
+        tooltip.style.top = (mousePos.y + containerRect.top + 20) + 'px';
     }
 
     function hideTooltip() {
@@ -99,10 +100,29 @@ window.addEventListener('load', function() {
                 <button onclick="updateTable(${table.id})">Update Table</button>
                 <button class="cancel" onclick="cancelEdit()">Cancel</button>
             </div>
+            <div class="form-group">
+                <button onclick="startTimer()">Start Timer</button> 
+                <button onclick="resetTimer()">Reset Timer</button>            
+            </div>
         `;
     }
 
     // Global functions for the editor
+
+    /*
+    
+    windows.startTimer = function(){
+        var timer;
+        var displayTime; // element to display timer
+        timer = setInterval(() => {
+            var sec = 0; 
+            console.log(sec); // logging to console for testing
+            sec++
+        }, 1000);
+
+    };
+
+    */
     window.updateTable = function(tableId) {
         const table = tables.find(t => t.id === tableId);
         if (!table) return;
