@@ -101,7 +101,7 @@ window.addEventListener('load', function() {
                 <button class="cancel" onclick="cancelEdit()">Cancel</button>
             </div>
             <div class="form-group">
-                <button onclick="startTimer()">Start Timer</button> 
+                <button onclick="startTimer()">Start Timerrr</button> 
                 <button onclick="resetTimer()">Reset Timer</button>            
             </div>
         `;
@@ -109,9 +109,11 @@ window.addEventListener('load', function() {
 
     // Global functions for the editor
 
-    /*
     
-    windows.startTimer = function(){
+    window.startTimer = function() {
+        
+        /*
+
         var timer;
         var displayTime; // element to display timer
         timer = setInterval(() => {
@@ -120,9 +122,10 @@ window.addEventListener('load', function() {
             sec++
         }, 1000);
 
+        */
+
     };
 
-    */
     window.updateTable = function(tableId) {
         const table = tables.find(t => t.id === tableId);
         if (!table) return;
