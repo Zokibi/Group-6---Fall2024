@@ -53,7 +53,7 @@ window.addEventListener('load', function() {
             Guests: ${table.guests}<br>
             Assigned waiter: ${table.waiter}<br>
             Status: ${table.status}<br>
-            Timer: 
+            Timer: ${second}
         `;
         
         tooltip.style.display = 'block';
@@ -109,22 +109,27 @@ window.addEventListener('load', function() {
 
     // Global functions for the editor
 
+    var second = 0;
+    var timer;
+
     
     window.startTimer = function() {
-        
-        /*
 
-        var timer;
-        var displayTime; // element to display timer
         timer = setInterval(() => {
-            var sec = 0; 
-            console.log(sec); // logging to console for testing
-            sec++
+            second++;
+            document.getElementById("display").innerHTML = second;
+            // rerout line 120 to a display box 
         }, 1000);
 
-        */
-
     };
+
+    window.resetTimer = function() {
+
+        timer = clearInterval(timer);
+        second = 0;
+        document.getElementById("display").innerHTML = second; // need to be in a display
+    }
+
 
     window.updateTable = function(tableId) {
         const table = tables.find(t => t.id === tableId);
