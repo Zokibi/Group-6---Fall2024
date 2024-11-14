@@ -101,7 +101,7 @@ window.addEventListener('load', function() {
                 <button class="cancel" onclick="cancelEdit()">Cancel</button>
             </div>
             <div class="form-group">
-                <button onclick="startTimer()">Start Timerrr</button> 
+                <button onclick="startTimer()">Start Timer</button> 
                 <button onclick="resetTimer()">Reset Timer</button>            
             </div>
         `;
