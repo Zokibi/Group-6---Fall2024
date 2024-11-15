@@ -87,3 +87,6 @@ def restaurant_view(request):
             messages.success(request, name + ' successfully added')
             return redirect(request.path)
     return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
+
+def layout_view(request):
+    return render(request, 'restaurant_layout.html')
