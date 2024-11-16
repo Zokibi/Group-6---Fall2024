@@ -53,7 +53,7 @@ window.addEventListener('load', function() {
             Guests: ${table.guests}<br>
             Assigned waiter: ${table.waiter}<br>
             Status: ${table.status}<br>
-            Timer: ${second}
+            Timer: ${hrs}:${mins}:${secs}<br>
         `;
         
         tooltip.style.display = 'block';
@@ -109,25 +109,57 @@ window.addEventListener('load', function() {
 
     // Global functions for the editor
 
-    var second = 0;
-    var timer;
+    // variables for the timer
+    let secs = '00';
+    let mins = '00';
+    let hrs = '00';
+    let millisecs = '00';
+    let elaspedTime = 0;
+    let timer = null;
+    let startTime = 0;
+    let isRunning = false;
 
     
     window.startTimer = function() {
 
-        timer = setInterval(() => {
-            second++;
-            document.getElementById("display").innerHTML = second;
-            // rerout line 120 to a display box 
-        }, 1000);
+        if(!isRunning){
+            startTime = Date.now() - elaspedTime;
+            timer = setInterval(updateTimer,10); // update timer every 10 milliseconds
+            isRunning = true;
+        }
+    }
 
-    };
+    window.updateTimer = function () {
+
+        const currentTime = Date.now();
+        elaspedTime = currentTime - startTime;
+
+        hrs = Math.floor(elaspedTime / (1000 * 60 * 60))
+        mins = Math.floor(elaspedTime / (1000 * 60) % 60);
+        secs = Math.floor(elaspedTime / 1000 % 60); // Math module to round the number and not get a decimal
+        millisecs = Math.floor(elaspedTime % 1000 /10);
+
+        hrs = String(hrs).padStart(2,"0"); // will make the hrs appear with two digits => 00:00:00
+        mins = String(mins).padStart(2,"0");
+        secs = String(secs).padStart(2,"0");
+        millisecs = String(millisecs).padStart(2,"0");
+
+        // tooltip.innerHTML = `${hrs}:${mins}:${secs}`;
+
+    }
 
     window.resetTimer = function() {
 
-        timer = clearInterval(timer);
-        second = 0;
-        document.getElementById("display").innerHTML = second; // need to be in a display
+        clearInterval(timer);
+        elaspedTime = 0;
+        startTime = 0;
+        isRunning = false;
+        secs = '00';
+        mins = '00';
+        hrs = '00';
+        millisecs = '00';
+
+        // tooltip.innerHTML = '00:00:00';
     }
 
 
