@@ -112,7 +112,7 @@ window.addEventListener('load', function() {
             </div>
             <div class="form-group">
                 <button onclick="startTimer(${table.id})">Start Timer</button> 
-                <button onclick="resetTimer(${table.id})">Reset Timer</button>            
+                <button class="cancel" onclick="resetTimer(${table.id})">Reset Timer</button>            
             </div>
         `;
     }
