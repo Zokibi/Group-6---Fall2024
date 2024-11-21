@@ -13,7 +13,6 @@ We are creating a software product that allows servers and host to easily manage
 - Daryna Kozlova - Developer
 - Isaiah Dillard - Developer
 - Jacob Sparks - Tester
-- Anthony Gilliam - Project Manager
 
 ### Development Tools
 - Django
