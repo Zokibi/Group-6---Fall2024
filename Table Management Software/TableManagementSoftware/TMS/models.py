@@ -1,12 +1,19 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.contrib.auth.models import User
 from decimal import Decimal
 
 # Create your database models here.
 
-class EmployeeClockin(models.Model):
-    Server = models.CharField(max_length=200)
-    clockin = models.BooleanField(default=False)
+class Employee(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    role = models.CharField(
+        max_length=30,
+        choices=[('Host', 'Host'),('Server', 'Server')]
+    )
+
+    def __str__(self):
+        return self.user.username
 
 class Restaurant(models.Model):
     name = models.CharField(max_length=30)
@@ -15,9 +22,10 @@ class Restaurant(models.Model):
 class Table(models.Model):
     tableID = models.AutoField(primary_key=True)
     guests = models.PositiveIntegerField(editable=True, default=0)
-    chairs = models.PositiveIntegerField(editable=True, default=0)
+    seats = models.PositiveIntegerField(editable=True, default=0)
     table_status = models.CharField(max_length=30)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 
 class Order(models.Model):
     orderID = models.AutoField(primary_key=True)
