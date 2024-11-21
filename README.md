@@ -14,7 +14,6 @@ We are creating a software product that allows servers and host to easily manage
 - Isaiah Dillard - Developer
 - Jacob Sparks - Tester
 
-
 ### Development Tools
 - Django
 - Python
