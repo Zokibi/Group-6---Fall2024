@@ -20,7 +20,7 @@ body {
   width: 700px;
 }
 .wrapper-signup {
-  height: 800px;
+  height: 1000px;
   width: 700px;
   
 }
@@ -57,6 +57,7 @@ h1 {
 .form-input {
   height: 60px;
   width: 600px;
+  margin-bottom: 50px;
 }
 button {
   width: 600px;
@@ -82,6 +83,7 @@ input[type="checkbox"] {
 .name-input {
   height: 60px;
   width: 600px;
+  margin-bottom: 50px;
 }
 p {
   color: white;

@@ -1,8 +1,9 @@
 from typing import Any
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from django import forms
 from django.contrib.auth.models import User
-from .models import Restaurant, Item
+from .models import *
 
 class CreateUserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -58,6 +59,7 @@ class CreateLoginForm(AuthenticationForm):
            model = User
            fields = ['username' , 'password']
 
+@login_required
 class SaveRestaurantProfile(forms.ModelForm):
       def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
