@@ -58,8 +58,7 @@ class CreateLoginForm(AuthenticationForm):
      class Meta:
            model = User
            fields = ['username' , 'password']
-
-@login_required
+           
 class SaveRestaurantProfile(forms.ModelForm):
       def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)

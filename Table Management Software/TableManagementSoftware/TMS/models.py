@@ -21,9 +21,10 @@ class Restaurant(models.Model):
     
 class Table(models.Model):
     tableID = models.AutoField(primary_key=True)
+    shape = models.CharField(max_length=30, choices=(('circle', 'circle'), ('rect', 'rect')))
+    table_status = models.CharField(max_length=30, choices=(('available', 'Available'), ('occupied', 'Occupied'), ('reserved', 'Reserved')), default='Available')
     guests = models.PositiveIntegerField(editable=True, default=0)
     seats = models.PositiveIntegerField(editable=True, default=1)
-    table_status = models.CharField(max_length=30, choices=(('Available', 'Available'), ('Occupied', 'Occupied'), ('Reserved', 'Reserved')), default='Available')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
 

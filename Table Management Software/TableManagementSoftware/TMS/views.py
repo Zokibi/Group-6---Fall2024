@@ -88,5 +88,10 @@ def restaurant_view(request):
             return redirect(request.path)
     return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
 
+def table_view(request):
+    tables = Table.objects.all()
+    return render(request, 'tables.html', {'tables': tables})
+
 def layout_view(request):
-    return render(request, 'restaurant_layout.html')
+    tables = list(Table.objects.values())
+    return render(request, 'restaurant_layout.html', {"tables": tables})

@@ -10,7 +10,26 @@ window.addEventListener('load', function() {
     // Hide loading message
     document.getElementById('loading').style.display = 'none';
 
-    const tables = [
+    let tables_json = JSON.parse(document.getElementById('tables-json').textContent);
+    
+    let tables = []
+
+    x = 300;
+    y = 80;
+
+    console.log(tables_json)
+
+    tables_json.forEach(element => {
+        if (element.shape == 'circle'){
+            tables.push({id: element.tableID, type: element.shape, x: x, y: y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.employee});
+        }
+        else if (element.shape == 'rect'){
+            tables.push({id: element.tableID, type: element.shape, x: x, y: y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.employee});
+        };
+        y += 120;
+    })
+
+   /* const tables = [
         // Circular tables arranged in left column (increased radius to 40)
         { id: 1, type: 'circle', x: 100, y: 100, radius: 40, status: 'occupied', seats: 10, guests: 8, waiter: 'John T.' },
         { id: 2, type: 'circle', x: 100, y: 300, radius: 40, status: 'available', seats: 6, guests: 0, waiter: 'N/A' },
@@ -27,7 +46,7 @@ window.addEventListener('load', function() {
         { id: 6, type: 'rect', x: 550, y: 100, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A' },
         { id: 7, type: 'rect', x: 550, y: 300, width: 50, height: 70, status: 'occupied', seats: 2, guests: 2, waiter: 'Mike P.' },
         { id: 8, type: 'rect', x: 550, y: 500, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A' }
-    ];
+    ]; */
 
     // Initialize Konva Stage with larger dimensions
     const stage = new Konva.Stage({

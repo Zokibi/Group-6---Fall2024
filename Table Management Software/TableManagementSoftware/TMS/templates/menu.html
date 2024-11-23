@@ -11,6 +11,10 @@ Menu Page
 <div class="wrapper-menu wrapper-alt menu-display">
     <table>
         <th colspan="2"><h3>Menu Items</h3></th>
+        <tr>
+            <th class="column_headers">Item</th>
+            <th class="column_headers">Price</th>
+        </tr>
         {% for item in item %}
         <tr>
             <td class="left-column">{{item.itemName}}</td>
