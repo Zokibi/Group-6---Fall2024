@@ -4,20 +4,17 @@ from decimal import Decimal
 
 # Create your database models here.
 
-class EmployeeClockin(models.Model):
-    Server = models.CharField(max_length=200)
-    clockin = models.BooleanField(default=False)
+class Employee(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    role = models.CharField(max_length=30, choices=(('Host', 'Host'), ('Server', 'Server')))
 
-class Restaurant(models.Model):
-    name = models.CharField(max_length=30)
-    numTables = models.PositiveIntegerField(editable=True, default=0)
-    
 class Table(models.Model):
     tableID = models.AutoField(primary_key=True)
     guests = models.PositiveIntegerField(editable=True, default=0)
     chairs = models.PositiveIntegerField(editable=True, default=0)
     table_status = models.CharField(max_length=30)
-    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, default='N/A')
 
 class Order(models.Model):
     orderID = models.AutoField(primary_key=True)

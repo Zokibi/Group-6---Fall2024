@@ -8,6 +8,7 @@
 {% endblock styles %}
 
 {% block content %}
+{% csrf_token %}
 <div id="container">
     <div id="loading">Loading...</div>
     <div class="controls">
@@ -25,6 +26,8 @@
 {% endblock %}
 
 {% block script %}
+{{tables|json_script:"tables-json"}}
+{{employees|json_script:"employees-json"}}
 <script src="https://unpkg.com/konva@9.3.3/konva.min.js"></script>
 <script src="{% static 'js/floorPlanHandler.js' %}"></script>
 {% endblock script %}

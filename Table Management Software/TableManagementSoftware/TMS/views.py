@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 
-from .forms import CreateUserForm, CreateLoginForm, SaveRestaurantProfile, AddMenuItem
+from .forms import *
 
 from .models import *
 
@@ -75,18 +75,8 @@ def menu_view(request):
             return redirect(request.path)
     return render(request, "menu.html", {'item': item, 'form': form})
 
-def restaurant_view(request):
-    form = SaveRestaurantProfile()
-    restaurants = Restaurant.objects.all()
-
-    if request.method == 'POST':
-        form = SaveRestaurantProfile(request.POST)
-        if form.is_valid():
-            form.save()
-            name = form.cleaned_data.get('name')
-            messages.success(request, name + ' successfully added')
-            return redirect(request.path)
-    return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
-
 def restaurant_layout(request):
-    return render(request, 'restaurant_layout.html')
+    tables = Table.objects.values()
+    employees = Employee.objects.values()
+    context = {'tables': tables, 'employees': employees}
+    return render(request, 'restaurant_layout.html', context)
