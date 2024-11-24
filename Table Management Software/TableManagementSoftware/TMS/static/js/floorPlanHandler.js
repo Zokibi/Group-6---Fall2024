@@ -13,34 +13,71 @@ window.addEventListener('load', function() {
     let tables_json = JSON.parse(document.getElementById('tables-json').textContent);
     let employees_json = JSON.parse(document.getElementById('employees-json').textContent);
     let users_json = JSON.parse(document.getElementById('users-json').textContent);
+    let restaurants_json = JSON.parse(document.getElementById('restaurants-json').textContent);
     
     let tables = [];
     let employees = [];
-    let users = [];
-
+    let users = {};
+    let restaurants = {};
+    let reverse_restaurants = {};
+    
     x = 300;
     y = 80;
-
-    console.log(tables_json)
-   
-
-    tables_json.forEach(element => {
-        if (element.shape == 'circle'){
-            tables.push({id: element.tableID, type: element.shape, x: x, y: y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.first_name});
-        }
-        else if (element.shape == 'rect'){
-            tables.push({id: element.tableID, type: element.shape, x: x, y: y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.first_name});
-        };
-        y += 120;
-    })
-
+    
     employees_json.forEach(element => {
         employees.push(element);
     })
 
     users_json.forEach(element => {
-        users.push(element.first_name + ' ' + element.last_name, element.id);
+        users[element.id ] = element.first_name + ' ' + element.last_name;
     })
+    
+    restaurants_json.forEach(element => {
+        restaurants[element.id] = element.name;
+        reverse_restaurants[element.name] = element.id;
+    })
+
+    console.log('Restaurant JSON:')
+    console.log(restaurants_json)
+    console.log('Restaurants:')
+    console.log(restaurants)
+    console.log('Reverse Restaurants:')
+    console.log(reverse_restaurants)
+
+    let restaurant_select = document.getElementById('restaurant-choice');
+
+    let restaurant_values = Object.values(restaurants)
+
+    let restaurant_keys = Object.keys(restaurants)
+
+    restaurant_values.forEach(element => {
+        var option = new Option(element, element);
+        restaurant_select.append(option)
+    })
+
+    console.log('Restaurant Values:');
+    console.log(restaurant_values);
+    console.log('Restaurant Keys:');
+    console.log(restaurant_keys)
+
+    tables_json.forEach(element => {
+        var restaurant_name = restaurants[element.restaurant_id];
+        if (restaurant_name == restaurant_select.value){
+            
+            if (element.shape == 'circle'){
+            
+                tables.push({id: element.tableID, type: element.shape, x: x, y: y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = Object.values(users)});
+            }
+            else if (element.shape == 'rect'){
+                tables.push({id: element.tableID, type: element.shape, x: x, y: y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: Object.values(users)});
+            };     
+        }
+        y += 120;
+        })
+        
+
+
+    
     /*console.log(tables)*/
     /*console.log(employees);
     console.log(users);*/
@@ -76,6 +113,8 @@ window.addEventListener('load', function() {
     // Get tooltip and editor elements
     const tooltip = document.getElementById('tooltip');
     const editorContent = document.getElementById('editor-content');
+    const restaurantButtons = document.getElementById('restaurant-buttons');
+
     let selectedShape = null;
 
     function showTooltip(table, evt) {
@@ -113,36 +152,42 @@ window.addEventListener('load', function() {
 
         // Create editor form
         editorContent.innerHTML = `
-        <form method="POST" action="{% url 'layout' %}">
-            <div class="form-group">
-                <label>Status:</label>
-                <select id="table-status">
-                    <option value="available" ${table.status === 'available' ? 'selected' : ''}>Available</option>
-                    <option value="occupied" ${table.status === 'occupied' ? 'selected' : ''}>Occupied</option>
-                    <option value="reserved" ${table.status === 'reserved' ? 'selected' : ''}>Reserved</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Number of Guests:</label>
-                <input type="number" id="table-guests" value="${table.guests}" min="0" max="${table.seats}">
-            </div>
-            <div class="form-group">
-                <label>Assigned Waiter:</label>
-                <input type="text" id="table-waiter" value="${table.waiter}">
-            </div>
-            <div class="form-group">
-                <button onclick="updateTable(${table.id})">Update Table</button>
-                <button class="cancel" onclick="cancelEdit()">Cancel</button>
-            </div>
-        </form>
+        <div class="form-group">
+            <label>Table Status:</label>
+            <select id="table-status">
+                <option value="available" ${table.status === 'available' ? 'selected' : ''}>Available</option>
+                <option value="occupied" ${table.status === 'occupied' ? 'selected' : ''}>Occupied</option>
+                <option value="reserved" ${table.status === 'reserved' ? 'selected' : ''}>Reserved</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Number of Guests:</label>
+            <input type="number" id="table-guests" value="${table.guests}" min="0" max="${table.seats}">
+        </div>
+        <div class="form-group">
+            <label>Assigned Waiter:</label>
+            <select id="table-waiter">
+            </select>
+        </div>
+        <div class="form-group">
+            <button onclick="updateTable(${table.id})">Update Table</button>
+            <button class="cancel" onclick="cancelEdit()">Cancel</button>
+        </div>
         `;
     }
 
+    restaurantButtons.innerHTML = `<button onclick="updateRestaurant(${reverse_restaurants[restaurant_select.value]})">Update Restaurant</button>`
+
     // Global functions for the editor
+    window.updateRestaurant = function(restaurant_id) {
+        const restaurant = restaurants.find(r => r.id === restaurant_id)
+        if (!restaurant) return;
+
+        restaurant.value = document.getElementById('restaurant-choice').value;
+    }
     
     window.updateTable = function(tableID) {
         const table = tables.find(t => t.id === tableID);
-        console.log(tableID)
         if (!table) return;
 
         // Update table data
@@ -233,6 +278,15 @@ window.addEventListener('load', function() {
         // Add click handler for editing
         shape.on('click', function() {
             showEditor(table, this);
+
+            let user_select = document.getElementById('table-waiter');
+
+            let user_values = Object.values(users)
+    
+            user_values.forEach(element => {
+            var option = new Option(element, element);
+            user_select.append(option)
+    })
         });
 
         layer.add(shape);

@@ -5,18 +5,18 @@ from decimal import Decimal
 
 # Create your database models here.
 
-class User(Abstract)
 class Employee(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     role = models.CharField(
         max_length=30,
         choices=[('Host', 'Host'),('Server', 'Server')]
     )
-    name = models.CharField(max_length=30, )
+
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
     
 class Restaurant(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=30)
     numTables = models.PositiveIntegerField(editable=True, default=1)
 

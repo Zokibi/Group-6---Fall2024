@@ -39,7 +39,6 @@ def signup_view(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        admin = request.POST.get('admin', False)
 
         if form.is_valid():
             login(request, form.save())
@@ -57,7 +56,7 @@ def signup_view(request):
             elif User.objects.filter(email=email).exists():
                 messages.info(request, 'Email already in use')
             form = CreateUserForm()
-    return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request 
+    return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request
 
 def logout_view(request):
     logout(request)
@@ -100,15 +99,8 @@ def layout_view(request):
     tables = list(Table.objects.values())
     employees = list(Employee.objects.values())
     users = list(User.objects.values())
+    restaurants = list(Restaurant.objects.values())
 
+    context = {"tables": tables, "employees": employees, "users": users, "restaurants": restaurants}
     
-    return render(request, 'restaurant_layout.html', {"tables": tables, "employees": employees, "users": users})
-
-def update_table(request, pk):
-        queryset = Table.objects.get(id=pk)
-        form = TableUpdateForm(instance=queryset)
-        if request.method == "POST":
-            form = TableUpdateForm(request.POST, instance=queryset)
-            if form.is_valid():
-                form.save()
-        return render(request ,'restaurant_layout.html', {"form": form})
+    return render(request, 'restaurant_layout.html', context)
