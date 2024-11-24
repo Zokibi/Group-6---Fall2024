@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 
-from .forms import CreateUserForm, CreateLoginForm, SaveRestaurantProfile, AddMenuItem
+from .forms import *
 
 from .models import *
 
@@ -39,11 +39,15 @@ def signup_view(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
+        admin = request.POST.get('admin', False)
 
         if form.is_valid():
             login(request, form.save())
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account created for user ' + user)
+            uname = form.cleaned_data.get('username')
+            messages.success(request, 'Account created for user ' + uname)
+            user = User.objects.get(username=uname)
+            if admin:
+                user.is_superuser == True
             return redirect("about")
         else:
             if password1 != password2:
@@ -94,4 +98,17 @@ def table_view(request):
 
 def layout_view(request):
     tables = list(Table.objects.values())
-    return render(request, 'restaurant_layout.html', {"tables": tables})
+    employees = list(Employee.objects.values())
+    users = list(User.objects.values())
+
+    
+    return render(request, 'restaurant_layout.html', {"tables": tables, "employees": employees, "users": users})
+
+def update_table(request, pk):
+        queryset = Table.objects.get(id=pk)
+        form = TableUpdateForm(instance=queryset)
+        if request.method == "POST":
+            form = TableUpdateForm(request.POST, instance=queryset)
+            if form.is_valid():
+                form.save()
+        return render(request ,'restaurant_layout.html', {"form": form})

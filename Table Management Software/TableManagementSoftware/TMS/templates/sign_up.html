@@ -33,7 +33,8 @@
     </div>
     {% endif %}
     <div class="input-field">
-      {{form.role}}
+      <label for="admin">Admin?</label>
+      <input type="checkbox" id="admin" name="admin">
     </div>
     <div class="input-field">
       <button style="width:600px; height: 60px; font-size: 40px;">Sign Up</button>
@@ -45,4 +46,15 @@
 </div>
 {% endblock %} 
 {% block script %}
+<script>
+function addPlaceholders(){
+    username.placeholder = " Enter Username";
+    email.placeholder = " Enter Email";
+    first_name.placeholder = " Enter First Name";
+    last_name.placeholder = " Enter Last Name";
+    password1.placeholder = " Enter Password";
+    password2.placeholder = " Re-enter Password";
+    }
+</script>
+  
 {% endblock script %}

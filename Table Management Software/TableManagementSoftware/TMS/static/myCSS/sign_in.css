@@ -54,10 +54,17 @@ h1 {
   color: white;
   align-items: center;
 }
-.form-input {
+#name-field {
+  display: flex;
+  flex-direction: row;
+}
+#id_username, #id_email, #id_first_name, #id_last_name, #id_password1, #id_password2 {
   height: 60px;
   width: 600px;
   margin-bottom: 50px;
+  background: transparent;
+  border: solid white 1px;
+  border-radius: 5px;
 }
 button {
   width: 600px;

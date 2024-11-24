@@ -11,24 +11,39 @@ window.addEventListener('load', function() {
     document.getElementById('loading').style.display = 'none';
 
     let tables_json = JSON.parse(document.getElementById('tables-json').textContent);
+    let employees_json = JSON.parse(document.getElementById('employees-json').textContent);
+    let users_json = JSON.parse(document.getElementById('users-json').textContent);
     
-    let tables = []
+    let tables = [];
+    let employees = [];
+    let users = [];
 
     x = 300;
     y = 80;
 
     console.log(tables_json)
+   
 
     tables_json.forEach(element => {
         if (element.shape == 'circle'){
-            tables.push({id: element.tableID, type: element.shape, x: x, y: y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.employee});
+            tables.push({id: element.tableID, type: element.shape, x: x, y: y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.first_name});
         }
         else if (element.shape == 'rect'){
-            tables.push({id: element.tableID, type: element.shape, x: x, y: y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.employee});
+            tables.push({id: element.tableID, type: element.shape, x: x, y: y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: element.first_name});
         };
         y += 120;
     })
 
+    employees_json.forEach(element => {
+        employees.push(element);
+    })
+
+    users_json.forEach(element => {
+        users.push(element.first_name + ' ' + element.last_name, element.id);
+    })
+    /*console.log(tables)*/
+    /*console.log(employees);
+    console.log(users);*/
    /* const tables = [
         // Circular tables arranged in left column (increased radius to 40)
         { id: 1, type: 'circle', x: 100, y: 100, radius: 40, status: 'occupied', seats: 10, guests: 8, waiter: 'John T.' },
@@ -98,6 +113,7 @@ window.addEventListener('load', function() {
 
         // Create editor form
         editorContent.innerHTML = `
+        <form method="POST" action="{% url 'layout' %}">
             <div class="form-group">
                 <label>Status:</label>
                 <select id="table-status">
@@ -118,18 +134,24 @@ window.addEventListener('load', function() {
                 <button onclick="updateTable(${table.id})">Update Table</button>
                 <button class="cancel" onclick="cancelEdit()">Cancel</button>
             </div>
+        </form>
         `;
     }
 
     // Global functions for the editor
-    window.updateTable = function(tableId) {
-        const table = tables.find(t => t.id === tableId);
+    
+    window.updateTable = function(tableID) {
+        const table = tables.find(t => t.id === tableID);
+        console.log(tableID)
         if (!table) return;
 
         // Update table data
         table.status = document.getElementById('table-status').value;
+        
         table.guests = parseInt(document.getElementById('table-guests').value);
+        
         table.waiter = document.getElementById('table-waiter').value;
+        
 
         // Update shape color
         const shape = selectedShape;

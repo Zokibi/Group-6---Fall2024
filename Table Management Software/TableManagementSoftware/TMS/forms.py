@@ -92,3 +92,8 @@ class AddMenuItem(forms.ModelForm):
      class Meta:
            model = Item
            fields = ['itemName', 'price']
+
+class TableUpdateForm(forms.ModelForm):
+     class Meta:
+          model: Table
+          fields = ['table_status','guests', 'employee']
