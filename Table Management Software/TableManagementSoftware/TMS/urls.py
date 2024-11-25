@@ -11,5 +11,4 @@ urlpatterns = [
     path("restaurant/", views.restaurant_view, name="restaurant"),
     path("table/", views.table_view, name="table"),
     path('layout/', views.layout_view, name="layout"),
-    path('update_layout/<str:pk>', views.update_table, name="update_table")
 ]

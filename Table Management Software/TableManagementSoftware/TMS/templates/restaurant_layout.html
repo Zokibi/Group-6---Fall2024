@@ -4,42 +4,27 @@
 {% block title %}Restaurant Layout{% endblock %}
 
 {% block styles %}
-<link rel="stylesheet" href="{% static 'myCSS/layout.css' %}">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
 {% endblock styles %}
 
 {% block content %}
-{% csrf_token %}
 <div id="container">
-    <form method="POST" action="{% url 'layout' %}">
-        <div class="restaurant-controls">
-            <label>Choose Restaurant:</label>
-            <select id="restaurant-choice">
-            </select>
-            <div id="restaurant-buttons">
-                
+    <div id="loading">Loading...</div>
+    <div class="controls">
+        <h2>Table Controls</h2>
+        <div id="table-editor" class="editor-panel">
+            <h3>Selected Table</h3>
+            <div id="editor-content">
+                <p class="no-selection">Click a table to edit its details</p>
             </div>
         </div>
-        <div id="loading">Loading...</div>
-        <div class="controls">
-            <h2>Table Controls</h2>
-            <div id="table-editor" class="editor-panel">
-                <h3>Selected Table</h3>
-                <div id="editor-content">
-                    <p class="no-selection">Click a table to edit its details</p>
-                </div>
-            </div>
-        </div>
-        <div id="stage-container"></div>
-        <div id="tooltip"></div>
-    </form>
+    </div>
+    <div id="stage-container"></div>
+    <div id="tooltip"></div>
 </div>
 {% endblock %}
 
 {% block script %}
-{{tables|json_script:"tables-json"}}
-{{employees|json_script:"employees-json"}}
-{{users|json_script:"users-json"}}
-{{restaurants|json_script:"restaurants-json"}}
 <script src="https://unpkg.com/konva@9.3.3/konva.min.js"></script>
 <script src="{% static 'js/floorPlanHandler.js' %}"></script>
 {% endblock script %}
