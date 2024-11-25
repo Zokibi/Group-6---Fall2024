@@ -45,9 +45,6 @@ def signup_view(request):
             uname = form.cleaned_data.get('username')
             messages.success(request, 'Account created for user ' + uname)
             user = User.objects.get(username=uname)
-            if admin:
-                user.is_superuser == True
-            return redirect("about")
         else:
             if password1 != password2:
                 messages.info(request, 'Passwords do not match')
