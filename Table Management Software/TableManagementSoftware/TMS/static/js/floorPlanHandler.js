@@ -10,7 +10,7 @@ window.addEventListener('load', function() {
     // Hide loading message
     document.getElementById('loading').style.display = 'none';
 
-    let tables_json = JSON.parse(document.getElementById('tables-json').textContent);
+    /*let tables_json = JSON.parse(document.getElementById('tables-json').textContent);
     let employees_json = JSON.parse(document.getElementById('employees-json').textContent);
     let users_json = JSON.parse(document.getElementById('users-json').textContent);
     let restaurants_json = JSON.parse(document.getElementById('restaurants-json').textContent);
@@ -73,15 +73,11 @@ window.addEventListener('load', function() {
             };     
         }
         y += 120;
-        })
+        })*/
         
 
 
-    
-    /*console.log(tables)*/
-    /*console.log(employees);
-    console.log(users);*/
-   /* const tables = [
+   const tables = [
         // Circular tables arranged in left column (increased radius to 40)
         { id: 1, type: 'circle', x: 100, y: 100, radius: 40, status: 'occupied', seats: 10, guests: 8, waiter: 'John T.' },
         { id: 2, type: 'circle', x: 100, y: 300, radius: 40, status: 'available', seats: 6, guests: 0, waiter: 'N/A' },
@@ -98,7 +94,7 @@ window.addEventListener('load', function() {
         { id: 6, type: 'rect', x: 550, y: 100, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A' },
         { id: 7, type: 'rect', x: 550, y: 300, width: 50, height: 70, status: 'occupied', seats: 2, guests: 2, waiter: 'Mike P.' },
         { id: 8, type: 'rect', x: 550, y: 500, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A' }
-    ]; */
+    ]; 
 
     // Initialize Konva Stage with larger dimensions
     const stage = new Konva.Stage({
@@ -169,14 +165,10 @@ window.addEventListener('load', function() {
             <select id="table-waiter">
             </select>
         </div>
-        <div class="form-group">
-            <button onclick="updateTable(${table.id})">Update Table</button>
-            <button class="cancel" onclick="cancelEdit()">Cancel</button>
-        </div>
         `;
     }
 
-    restaurantButtons.innerHTML = `<button onclick="updateRestaurant(${reverse_restaurants[restaurant_select.value]})">Update Restaurant</button>`
+    /*restaurantButtons.innerHTML = `<button onclick="updateRestaurant(${reverse_restaurants[restaurant_select.value]})">Update Restaurant</button>`*/
 
     // Global functions for the editor
     window.updateRestaurant = function(restaurant_id) {

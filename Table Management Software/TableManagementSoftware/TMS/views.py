@@ -96,11 +96,4 @@ def table_view(request):
     return render(request, 'tables.html', {'tables': tables})
 
 def layout_view(request):
-    tables = list(Table.objects.values())
-    employees = list(Employee.objects.values())
-    users = list(User.objects.values())
-    restaurants = list(Restaurant.objects.values())
-
-    context = {"tables": tables, "employees": employees, "users": users, "restaurants": restaurants}
-    
-    return render(request, 'restaurant_layout.html', context)
+    return render(request, 'restaurant_layout.html')
