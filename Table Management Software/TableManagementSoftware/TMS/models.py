@@ -4,10 +4,15 @@ from decimal import Decimal
 
 # Create your database models here.
 
+class Restaurant(models.Model):
+    name = models.CharField(max_length=30)
+    numTables = models.PositiveIntegerField(editable=True, default=1)
+
 class Employee(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     role = models.CharField(max_length=30, choices=(('Host', 'Host'), ('Server', 'Server')))
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 class Table(models.Model):
     tableID = models.AutoField(primary_key=True)

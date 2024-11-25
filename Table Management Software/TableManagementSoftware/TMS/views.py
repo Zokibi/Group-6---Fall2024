@@ -75,6 +75,20 @@ def menu_view(request):
             return redirect(request.path)
     return render(request, "menu.html", {'item': item, 'form': form})
 
+def restaurant_view(request):
+    form = SaveRestaurantProfile()
+    restaurants = Restaurant.objects.all()
+
+    if request.method == 'POST':
+        form = SaveRestaurantProfile(request.POST)
+        if form.is_valid():
+            form.save()
+            name = form.cleaned_data.get('name')
+            messages.success(request, name + ' successfully added')
+            return redirect(request.path)
+    return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
+
+
 def restaurant_layout(request):
     tables = Table.objects.values()
     employees = Employee.objects.values()
