@@ -95,5 +95,5 @@ def table_view(request):
     tables = Table.objects.all()
     return render(request, 'tables.html', {'tables': tables})
 
-def layout_view(request):
+def restaurant_layout(request):
     return render(request, 'restaurant_layout.html')

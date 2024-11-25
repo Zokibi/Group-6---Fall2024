@@ -10,6 +10,7 @@
       rel="stylesheet"
     />
     {% block styles %}
+    
     {% endblock styles %}
     <link rel="stylesheet" href="{% static 'myCSS/navbar.css' %}">
   </head>
@@ -45,7 +46,7 @@
             <a href="{% url 'table' %}" class="nav-link">Table</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'layout' %}" class="nav-link">Layout</a>
+            <a href="{% url 'restaurant_layout' %}" class="nav-link">Layout</a>
           </li>
         </ul>
         <ul class="navbar-nav nav-user">
