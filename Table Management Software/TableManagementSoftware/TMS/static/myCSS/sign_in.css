@@ -20,7 +20,7 @@ body {
   width: 700px;
 }
 .wrapper-signup {
-  height: 900px;
+  height: 1000px;
   width: 700px;
   
 }
@@ -54,9 +54,17 @@ h1 {
   color: white;
   align-items: center;
 }
-.form-input {
+#name-field {
+  display: flex;
+  flex-direction: row;
+}
+#id_username, #id_email, #id_first_name, #id_last_name, #id_password1, #id_password2, #id_password {
   height: 60px;
   width: 600px;
+  margin-bottom: 50px;
+  background: transparent;
+  border: solid white 1px;
+  border-radius: 5px;
 }
 button {
   width: 600px;
@@ -81,7 +89,8 @@ input[type="checkbox"] {
 }
 .name-input {
   height: 60px;
-  width: 295px;
+  width: 600px;
+  margin-bottom: 50px;
 }
 p {
   color: white;

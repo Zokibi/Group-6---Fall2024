@@ -74,21 +74,12 @@ th{
 
 td{
     width: 300px;
+    text-align: center;
 }
 
 table {
     width: 100%;
     color: white;
-}
-
-.left-column{
-    text-align: left;
-    padding-left: 10px;
-}
-
-.right-column{
-    text-align: right;
-    padding-right: 20px;
 }
 
 table tr:nth-child(odd){

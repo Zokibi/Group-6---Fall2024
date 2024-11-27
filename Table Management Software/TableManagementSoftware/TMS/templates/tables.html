@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'myCSS/menu.css' %}">
+{% endblock styles %} 
+{% block title %} 
+Table Page 
+{% endblock %}
+{% block content %}
+<div class="wrapper-menu wrapper-alt menu-display">
+    <table>
+        <th colspan="3"><h3>Tables</h3></th>
+        <tr>
+            <th class="column_headers">Restaurant Name</th>
+            <th class="column_headers">Table ID</th>
+            <th class="column_headers">Number of Seats</th>
+        </tr>
+        {% for table in tables %}
+        <tr>
+            <td class="left-column">{{table.restaurant.name}}</td>
+            <td>{{table.tableID}}</td>
+            <td class="right-column">{{table.seats}}</td>
+        </tr>       
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

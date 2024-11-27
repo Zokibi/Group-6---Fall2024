@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 
-from .forms import CreateUserForm, CreateLoginForm, SaveRestaurantProfile, AddMenuItem
+from .forms import *
 
 from .models import *
 
@@ -42,9 +42,9 @@ def signup_view(request):
 
         if form.is_valid():
             login(request, form.save())
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account created for user ' + user)
-            return redirect("about")
+            uname = form.cleaned_data.get('username')
+            messages.success(request, 'Account created for user ' + uname)
+            user = User.objects.get(username=uname)
         else:
             if password1 != password2:
                 messages.info(request, 'Passwords do not match')
@@ -53,7 +53,7 @@ def signup_view(request):
             elif User.objects.filter(email=email).exists():
                 messages.info(request, 'Email already in use')
             form = CreateUserForm()
-    return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request 
+    return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request
 
 def logout_view(request):
     logout(request)
@@ -87,6 +87,10 @@ def restaurant_view(request):
             messages.success(request, name + ' successfully added')
             return redirect(request.path)
     return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
+
+def table_view(request):
+    tables = Table.objects.all()
+    return render(request, 'tables.html', {'tables': tables})
 
 def restaurant_layout(request):
     return render(request, 'restaurant_layout.html')

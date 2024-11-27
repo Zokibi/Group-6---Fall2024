@@ -2,7 +2,7 @@
 {% load static %}
 {% block title %} Sign Up Page {% endblock %}
 {% block styles %}
-<link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+<link rel="stylesheet" href="{% static 'myCSS/sign_in.css' %}">
 {% endblock styles %}
 {% block content %}
 <div class="wrapper-signup wrapper">
@@ -15,7 +15,7 @@
     <div class="input-field">
       {{form.email}}
     </div>
-    <div class="input-field">
+    <div class="input-field" id="name-field">
       {{form.first_name}}
       {{form.last_name}}
     </div>
@@ -42,4 +42,15 @@
 </div>
 {% endblock %} 
 {% block script %}
+<script>
+function addPlaceholders(){
+    username.placeholder = " Enter Username";
+    email.placeholder = " Enter Email";
+    first_name.placeholder = " Enter First Name";
+    last_name.placeholder = " Enter Last Name";
+    password1.placeholder = " Enter Password";
+    password2.placeholder = " Re-enter Password";
+    }
+</script>
+  
 {% endblock script %}

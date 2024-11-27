@@ -1,8 +1,9 @@
 from typing import Any
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
 from django import forms
 from django.contrib.auth.models import User
-from .models import Restaurant, Item
+from .models import *
 
 class CreateUserForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
@@ -57,7 +58,7 @@ class CreateLoginForm(AuthenticationForm):
      class Meta:
            model = User
            fields = ['username' , 'password']
-
+           
 class SaveRestaurantProfile(forms.ModelForm):
       def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
@@ -91,3 +92,8 @@ class AddMenuItem(forms.ModelForm):
      class Meta:
            model = Item
            fields = ['itemName', 'price']
+
+class TableUpdateForm(forms.ModelForm):
+     class Meta:
+          model: Table
+          fields = ['table_status','guests', 'employee']
