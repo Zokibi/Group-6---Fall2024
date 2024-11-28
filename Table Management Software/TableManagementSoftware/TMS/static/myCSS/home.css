@@ -6,4 +6,7 @@ body{
     justify-content: center;
     background-color: white;
     background-size: cover;
+    text-align: center;
+    font-size: x-large;
+    font-weight: 700;
 }
