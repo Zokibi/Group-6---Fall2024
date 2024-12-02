@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from .forms import *
 
@@ -29,11 +31,18 @@ def login_view(request):
             form = CreateLoginForm()
     return render(request, 'login.html', {'form': form})
 
+@receiver(post_save, sender=User)
+def create_emploeyee(sender, instance, created, **kwargs):
+    if created:
+        Employee.objects.create(user=instance)
+
 def signup_view(request):
     form = CreateUserForm()
+    form2 = EmployeeForm()
 
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
+        form2 = EmployeeForm(request.POST)
 
         username = request.POST['username']
         email = request.POST['email']
@@ -44,7 +53,6 @@ def signup_view(request):
             login(request, form.save())
             uname = form.cleaned_data.get('username')
             messages.success(request, 'Account created for user ' + uname)
-            user = User.objects.get(username=uname)
         else:
             if password1 != password2:
                 messages.info(request, 'Passwords do not match')
@@ -53,7 +61,7 @@ def signup_view(request):
             elif User.objects.filter(email=email).exists():
                 messages.info(request, 'Email already in use')
             form = CreateUserForm()
-    return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request
+    return render(request, 'sign_up.html', {'form':form, 'form2': form2})  # Render sign-up page on GET request
 
 def logout_view(request):
     logout(request)

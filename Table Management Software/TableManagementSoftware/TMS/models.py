@@ -6,10 +6,11 @@ from decimal import Decimal
 # Create your database models here.
 
 class Employee(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(
         max_length=30,
-        choices=[('Host', 'Host'),('Server', 'Server')]
+        choices=[('Host', 'Host'),('Server', 'Server')],
+        default='Server'
     )
 
     def __str__(self):

@@ -93,6 +93,11 @@ class AddMenuItem(forms.ModelForm):
            model = Item
            fields = ['itemName', 'price']
 
+class EmployeeForm(forms.ModelForm):
+      class Meta:
+            model = Employee
+            fields = ['role']
+
 class TableUpdateForm(forms.ModelForm):
      class Meta:
           model: Table
