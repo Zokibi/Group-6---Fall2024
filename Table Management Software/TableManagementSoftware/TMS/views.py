@@ -48,8 +48,9 @@ def signup_view(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
+        role = request.POST['role']
 
-        if form.is_valid():
+        if form.is_valid() and form2.is_valid():
             login(request, form.save())
             uname = form.cleaned_data.get('username')
             messages.success(request, 'Account created for user ' + uname)

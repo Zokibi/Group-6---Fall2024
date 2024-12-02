@@ -36,11 +36,17 @@ class Table(models.Model):
 
     def get_employee(self, employee):
         return employee.first_name
+    
+    def __str__(self):
+        return self.restaurant.name + ': Table ' + str(self.tableID)
 
 class Order(models.Model):
     orderID = models.AutoField(primary_key=True)
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
     order_status = models.CharField(max_length=30, choices=(('Pending', 'Pending'), ('Complete', 'Complete')))
+    
+    def __str__(self) -> str:
+        return f"{self.table.restaurant} Table {self.table.tableID} Order Status: {self.order_status}"
 
 class Item(models.Model):
     itemID = models.AutoField(primary_key=True)
@@ -48,9 +54,15 @@ class Item(models.Model):
     price = models.DecimalField(max_digits=5, decimal_places=2, validators=[MinValueValidator(Decimal('0.01'))])
     order = models.ManyToManyField(Order, through='OrderItem')
 
+    def __str__(self):
+        return self.itemName
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
     item = models.ForeignKey(Item, on_delete=models.CASCADE, null=True)
     item_quantity = models.PositiveIntegerField(editable=True, default=1)
+
+    def __str__(self):
+        return f"Order #: {self.order.orderID}, Item: {self.item}, Quantity: {self.item_quantity}"
 
 
