@@ -1,0 +1,39 @@
+body {
+
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    background-size: cover;
+    padding: 30px;
+}
+
+
+h1 {
+
+    color: white;
+    font-style: oblique;
+}
+
+p {
+
+    color: white;
+    font-size: larger;
+
+}
+
+ul {
+
+    color: white;
+    font-size: x-large;
+    list-style: none;
+}
+
+.section {
+
+    padding: 10px;
+
+}
+
