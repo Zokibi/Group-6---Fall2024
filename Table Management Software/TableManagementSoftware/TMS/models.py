@@ -4,7 +4,15 @@ from django.contrib.auth.models import UserManager, User
 from decimal import Decimal
 
 # Create your database models here.
+class Restaurant(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=30)
+    numTables = models.PositiveIntegerField(editable=True, default=0)
 
+    def __str__(self):
+        return self.name
+     
+    
 class Employee(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(
@@ -16,26 +24,20 @@ class Employee(models.Model):
     def __str__(self):
         return self.user.first_name + ' ' + self.user.last_name
     
-class Restaurant(models.Model):
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=30)
-    numTables = models.PositiveIntegerField(editable=True, default=1)
-
-    def __str__(self):
-        return self.name
-    
+    def getRole(self):
+        return self.role
     
 class Table(models.Model):
     tableID = models.AutoField(primary_key=True)
-    shape = models.CharField(max_length=30, choices=(('circle', 'circle'), ('rect', 'rect')), default='rect')
+    shape = models.CharField(max_length=30, choices=(('circle', 'Circle'), ('rect', 'Rectangle')), default='Rectangle')
     table_status = models.CharField(max_length=30, choices=(('available', 'Available'), ('occupied', 'Occupied'), ('reserved', 'Reserved')), default='Available')
     guests = models.PositiveIntegerField(editable=True, default=1)
     seats = models.PositiveIntegerField(editable=True, default=1)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    employee = models.ForeignKey(Employee, editable=True, on_delete=models.CASCADE)
+    employee = models.ForeignKey(Employee, editable=True, on_delete=models.CASCADE, null=True)
 
-    def get_employee(self, employee):
-        return employee.first_name
+    def get_employee(self):
+        return f'{self.employee.user.first_name} {self.employee.user.last_name}'
     
     def __str__(self):
         return self.restaurant.name + ': Table ' + str(self.tableID)

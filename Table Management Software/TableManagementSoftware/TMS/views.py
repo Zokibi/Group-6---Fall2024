@@ -1,12 +1,11 @@
-from django.shortcuts import render, HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core import serializers
+
 
 from .forms import *
 
@@ -48,7 +47,6 @@ def signup_view(request):
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        role = request.POST['role']
 
         if form.is_valid() and form2.is_valid():
             login(request, form.save())
@@ -84,6 +82,10 @@ def menu_view(request):
             return redirect(request.path)
     return render(request, "menu.html", {'item': item, 'form': form})
 
+def delete_item(request, itemID):
+    Item.objects.get(itemID = itemID).delete()
+    return redirect(menu_view)
+
 def restaurant_view(request):
     form = SaveRestaurantProfile()
     restaurants = Restaurant.objects.all()
@@ -97,9 +99,34 @@ def restaurant_view(request):
             return redirect(request.path)
     return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
 
+
 def table_view(request):
+    form = AddTable()
     tables = Table.objects.all()
-    return render(request, 'tables.html', {'tables': tables})
+
+    if request.method =='POST':
+        form = AddTable(request.POST)
+
+        id = request.POST['restaurant']
+        specific_restaurant = Restaurant.objects.filter(id=id)
+        r = Restaurant.objects.get(id=id)
+        specific_tables = Table.objects.filter(restaurant = id)
+        
+        if form.is_valid and specific_tables.count() <= r.numTables:
+            form.save()
+            r.numTables = specific_tables.count()
+            r.save()
+            return redirect(request.path)
+    return render(request, 'tables.html', {'tables': tables, 'form': form})
+
+def delete_table(request, tableID):
+    Table.objects.get(tableID = tableID).delete()
+    return redirect(table_view)
 
 def restaurant_layout(request):
-    return render(request, 'restaurant_layout.html')
+    tables_json = serializers.serialize("json", Table.objects.all())
+    restaurants_json = serializers.serialize("json", Restaurant.objects.all())
+
+    context = {'restaurants': restaurants_json, 'tables': tables_json}
+
+    return render(request, 'restaurant_layout.html', context)

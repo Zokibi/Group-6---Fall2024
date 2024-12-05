@@ -9,6 +9,7 @@ window.addEventListener('load', function() {
 
     // Hide loading message
     document.getElementById('loading').style.display = 'none';
+    document.getElementById('tables_json');
 
     // Added timer-related variables
     const tables = [
@@ -29,6 +30,7 @@ window.addEventListener('load', function() {
         { id: 7, type: 'rect', x: 550, y: 300, width: 50, height: 70, status: 'occupied', seats: 2, guests: 2, waiter: 'Mike P.',  elapsedTime: 0, startTime: 0, isRunning: false  },
         { id: 8, type: 'rect', x: 550, y: 500, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false }
     ];
+
 
     // Initialize Konva Stage with larger dimensions
     const stage = new Konva.Stage({
