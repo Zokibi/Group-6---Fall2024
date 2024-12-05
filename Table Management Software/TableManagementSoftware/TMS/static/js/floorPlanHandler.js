@@ -9,10 +9,61 @@ window.addEventListener('load', function() {
 
     // Hide loading message
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('tables_json');
 
+
+    var tables_json = JSON.parse(document.getElementById('tables_json').textContent);
+    var restaurants_json = JSON.parse(this.document.getElementById('restaurants_json').textContent);
+    var employees_json = JSON.parse(document.getElementById('employees_json').textContent);
+    var users_json = JSON.parse(this.document.getElementById('users_json').textContent);
+
+    let tables = []
+    let restaurants = []
+    let employees = []
+    let users = []
+    let names = []
+
+    let x = 300
+    let y = 80
+
+    console.log('Tables');
+    console.log(tables);
+    console.log('Restaurants');
+    console.log(restaurants_json);
+    console.log('Employees');
+    console.log(employees_json);
+    console.log('Users JSON');
+    console.log(users_json);
+    console.log('Users');
+    console.log(users);
+
+    
+    users_json.forEach((user) => {
+        names.push(user.first_name + ' ' + user.last_name)
+    })
+
+    employees_json.forEach((employee) => {
+        employees.push(
+            {name: users.find((user) => user.id == employee.id)}
+        )
+    })
+    console.log(names)
+    console.log(employees)
+
+
+    tables_json.forEach((element) => {
+        if (element.shape =='circle'){
+        tables.push({
+            id: element.tableID, type: element.shape, x:x, y:y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names})
+        }else if (element.shape == 'rect'){
+            tables.push({
+                id: element.tableID, type: element.shape, x:x, y:y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = Object.values(employees)})
+        }
+        y += 120;
+    });
+
+    
     // Added timer-related variables
-    const tables = [
+    /*const tables = [
         // Circular tables arranged in left column (increased radius to 40)
         { id: 1, type: 'circle', x: 100, y: 100, radius: 40, status: 'occupied', seats: 10, guests: 8, waiter: 'John T.', elapsedTime: 0, startTime: 0, isRunning: false },
         { id: 2, type: 'circle', x: 100, y: 300, radius: 40, status: 'available', seats: 6, guests: 0, waiter: 'N/A', elapsedTime: 0, startTime: 0, isRunning: false },
@@ -29,7 +80,7 @@ window.addEventListener('load', function() {
         { id: 6, type: 'rect', x: 550, y: 100, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
         { id: 7, type: 'rect', x: 550, y: 300, width: 50, height: 70, status: 'occupied', seats: 2, guests: 2, waiter: 'Mike P.',  elapsedTime: 0, startTime: 0, isRunning: false  },
         { id: 8, type: 'rect', x: 550, y: 500, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false }
-    ];
+    ];*/
 
 
     // Initialize Konva Stage with larger dimensions

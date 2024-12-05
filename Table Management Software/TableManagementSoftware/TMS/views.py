@@ -125,7 +125,10 @@ def delete_table(request, tableID):
 def restaurant_layout(request):
     tables = list(Table.objects.values())
     restaurants = list(Restaurant.objects.values())
+    employees = list(Employee.objects.values())
+    users = list(User.objects.values())
+
 
     
-    context = {'restaurants': restaurants, 'tables': tables}
+    context = {'restaurants': restaurants, 'tables': tables, 'employees': employees, 'users': users}
     return render(request, 'restaurant_layout.html', context)

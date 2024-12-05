@@ -34,7 +34,7 @@ class Table(models.Model):
     guests = models.PositiveIntegerField(editable=True, default=1)
     seats = models.PositiveIntegerField(editable=True, default=1)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    employee = models.ForeignKey(Employee, editable=True, on_delete=models.CASCADE, null=True)
+    employee = models.ForeignKey(Employee, editable=True, on_delete=models.CASCADE, default='N/A')
 
     def get_employee(self):
         return f'{self.employee.user.first_name} {self.employee.user.last_name}'
