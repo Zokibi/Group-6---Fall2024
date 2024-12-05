@@ -13,20 +13,20 @@ window.addEventListener('load', function() {
     // Added timer-related variables
     const tables = [
         // Circular tables arranged in left column (increased radius to 40)
-        { id: 1, type: 'circle', x: 100, y: 100, radius: 40, status: 'occupied', seats: 10, guests: 8, waiter: 'John T.', elapsedTime: 0, startTime: 0, isRunning: false },
+        { id: 1, type: 'circle', x: 100, y: 100, radius: 40, status: 'available', seats: 10, guests: 8, waiter: 'N/A', elapsedTime: 0, startTime: 0, isRunning: false },
         { id: 2, type: 'circle', x: 100, y: 300, radius: 40, status: 'available', seats: 6, guests: 0, waiter: 'N/A', elapsedTime: 0, startTime: 0, isRunning: false },
         { id: 3, type: 'circle', x: 100, y: 500, radius: 40, status: 'available', seats: 6, guests: 0, waiter: 'N/A', elapsedTime: 0, startTime: 0, isRunning: false },
         
         // Rectangular tables for 4 people in middle column (increased size and added more tables)
-        { id: 4, type: 'rect', x: 300, y: 80, width: 120, height: 60, status: 'occupied', seats: 4, guests: 4, waiter: 'Sarah M.',  elapsedTime: 0, startTime: 0, isRunning: false  },
+        { id: 4, type: 'rect', x: 300, y: 80, width: 120, height: 60, status: 'available', seats: 4, guests: 4, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
         { id: 5, type: 'rect', x: 300, y: 200, width: 120, height: 60, status: 'available', seats: 4, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
         { id: 9, type: 'rect', x: 300, y: 320, width: 120, height: 60, status: 'available', seats: 4, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
-        { id: 10, type: 'rect', x: 300, y: 440, width: 120, height: 60, status: 'reserved', seats: 4, guests: 0, waiter: 'Lisa R.',  elapsedTime: 0, startTime: 0, isRunning: false  },
+        { id: 10, type: 'rect', x: 300, y: 440, width: 120, height: 60, status: 'available', seats: 4, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
         { id: 11, type: 'rect', x: 300, y: 560, width: 120, height: 60, status: 'available', seats: 4, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
         
         // Small rectangular tables for 2 people in right column (slightly increased size)
         { id: 6, type: 'rect', x: 550, y: 100, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
-        { id: 7, type: 'rect', x: 550, y: 300, width: 50, height: 70, status: 'occupied', seats: 2, guests: 2, waiter: 'Mike P.',  elapsedTime: 0, startTime: 0, isRunning: false  },
+        { id: 7, type: 'rect', x: 550, y: 300, width: 50, height: 70, status: 'available', seats: 2, guests: 2, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false  },
         { id: 8, type: 'rect', x: 550, y: 500, width: 50, height: 70, status: 'available', seats: 2, guests: 0, waiter: 'N/A',  elapsedTime: 0, startTime: 0, isRunning: false }
     ];
 
