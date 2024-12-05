@@ -108,7 +108,6 @@ def table_view(request):
         form = AddTable(request.POST)
 
         id = request.POST['restaurant']
-        specific_restaurant = Restaurant.objects.filter(id=id)
         r = Restaurant.objects.get(id=id)
         specific_tables = Table.objects.filter(restaurant = id)
         
@@ -124,9 +123,9 @@ def delete_table(request, tableID):
     return redirect(table_view)
 
 def restaurant_layout(request):
-    tables_json = serializers.serialize("json", Table.objects.all())
-    restaurants_json = serializers.serialize("json", Restaurant.objects.all())
+    tables = list(Table.objects.values())
+    restaurants = list(Restaurant.objects.values())
 
-    context = {'restaurants': restaurants_json, 'tables': tables_json}
-
+    
+    context = {'restaurants': restaurants, 'tables': tables}
     return render(request, 'restaurant_layout.html', context)

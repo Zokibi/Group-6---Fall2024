@@ -22,15 +22,13 @@
     <div id="stage-container"></div>
     <div id="tooltip"></div>
 </div>
+
+
 {% endblock %}
 
 {% block script %}
 <script src="https://unpkg.com/konva@9.3.3/konva.min.js"></script>
 <script src="{% static 'js/floorPlanHandler.js' %}"></script>
-<script>
-    var restaurant_json = '{{ restaurant|json_script:restaurant_json }}';
-
-    var tables_json = '{{ tables|json_script:tables_json }}';
-
-</script>
+{{tables|json_script:"tables_json"}}
+{{restaurants|json_script:"restaurants_json"}}
 {% endblock script %}
