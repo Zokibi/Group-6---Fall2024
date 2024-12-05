@@ -56,7 +56,7 @@ window.addEventListener('load', function() {
             id: element.tableID, type: element.shape, x:x, y:y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names})
         }else if (element.shape == 'rect'){
             tables.push({
-                id: element.tableID, type: element.shape, x:x, y:y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = Object.values(employees)})
+                id: element.tableID, type: element.shape, x:x, y:y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names})
         }
         y += 120;
     });
