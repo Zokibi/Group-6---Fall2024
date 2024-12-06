@@ -31,10 +31,10 @@ class Table(models.Model):
     tableID = models.AutoField(primary_key=True)
     shape = models.CharField(max_length=30, choices=(('circle', 'Circle'), ('rect', 'Rectangle')), default='Rectangle')
     table_status = models.CharField(max_length=30, choices=(('available', 'Available'), ('occupied', 'Occupied'), ('reserved', 'Reserved')), default='Available')
-    guests = models.PositiveIntegerField(editable=True, default=1)
+    guests = models.PositiveIntegerField(editable=True, default=0)
     seats = models.PositiveIntegerField(editable=True, default=1)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
-    employee = models.ForeignKey(Employee, editable=True, on_delete=models.CASCADE, default='N/A')
+    employee = models.ForeignKey(Employee, editable=True, on_delete=models.CASCADE, null=True)
 
     def get_employee(self):
         return f'{self.employee.user.first_name} {self.employee.user.last_name}'

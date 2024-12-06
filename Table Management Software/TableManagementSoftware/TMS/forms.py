@@ -93,12 +93,8 @@ class AddTable(forms.ModelForm):
            model = Table
            fields = ['tableID','shape', 'seats', 'restaurant']
 
-class UpdateTable(forms.ModelForm):
-      class Meta:
-            model = Table
-            fields = ['table_status', 'guests', 'employee']
-
 class EmployeeForm(forms.ModelForm):
       class Meta:
             model = Employee
             fields = ['role']
+

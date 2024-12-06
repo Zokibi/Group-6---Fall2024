@@ -10,20 +10,18 @@ window.addEventListener('load', function() {
     // Hide loading message
     document.getElementById('loading').style.display = 'none';
 
-
+    // Parsing JSON containing table data from database
     var tables_json = JSON.parse(document.getElementById('tables_json').textContent);
     var restaurants_json = JSON.parse(this.document.getElementById('restaurants_json').textContent);
     var employees_json = JSON.parse(document.getElementById('employees_json').textContent);
     var users_json = JSON.parse(this.document.getElementById('users_json').textContent);
 
-    let tables = []
-    let restaurants = []
-    let employees = []
-    let users = []
-    let names = []
-
-    let x = 300
-    let y = 80
+    // Initializing empty arrays to hold table data
+    var tables = []
+    var restaurants = []
+    var employees = []
+    var users = []
+    var names = []
 
     console.log('Tables');
     console.log(tables);
@@ -49,16 +47,27 @@ window.addEventListener('load', function() {
     console.log(names)
     console.log(employees)
 
+    var iterateX = 0
+
+    var x = [100, 550]
+    var y = 80
 
     tables_json.forEach((element) => {
         if (element.shape =='circle'){
         tables.push({
-            id: element.tableID, type: element.shape, x:x, y:y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names})
+            id: element.tableID, type: element.shape, x:x[iterateX], y:y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names, elapsedTime: 0, startTime: 0, isRunning: false})
         }else if (element.shape == 'rect'){
             tables.push({
-                id: element.tableID, type: element.shape, x:x, y:y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names})
+                id: element.tableID, type: element.shape, x:300, y:y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names, elapsedTime: 0, startTime: 0, isRunning: false})
         }
-        y += 120;
+        if (x[iterateX] == 100){
+            iterateX += 1
+        }
+        else if(x[iterateX] == 550){
+            iterateX = 0
+            y += 100
+        }
+        
     });
 
     
@@ -143,26 +152,28 @@ window.addEventListener('load', function() {
 
         // Create editor form
         editorContent.innerHTML = `
-            <div class="form-group">
-                <label>Status:</label>
-                <select id="table-status">
-                    <option value="available" ${table.status === 'available' ? 'selected' : ''}>Available</option>
-                    <option value="occupied" ${table.status === 'occupied' ? 'selected' : ''}>Occupied</option>
-                    <option value="reserved" ${table.status === 'reserved' ? 'selected' : ''}>Reserved</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Number of Guests:</label>
-                <input type="number" id="table-guests" value="${table.guests}" min="0" max="${table.seats}">
-            </div>
-            <div class="form-group">
-                <label>Assigned Waiter:</label>
-                <input type="text" id="table-waiter" value="${table.waiter}">
-            </div>
-            <div class="form-group">
-                <button onclick="updateTable(${table.id})">Update Table</button>
-                <button class="cancel" onclick="cancelEdit()">Cancel</button>
-            </div>
+            <form method="POST" action="{% url 'layout' %}">
+                <div class="form-group">
+                    <label>Status:</label>
+                    <select id="table-status">
+                        <option value="available" ${table.status === 'available' ? 'selected' : ''}>Available</option>
+                        <option value="occupied" ${table.status === 'occupied' ? 'selected' : ''}>Occupied</option>
+                        <option value="reserved" ${table.status === 'reserved' ? 'selected' : ''}>Reserved</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Number of Guests:</label>
+                    <input type="number" id="table-guests" value="${table.guests}" min="0" max="${table.seats}">
+                </div>
+                <div class="form-group">
+                    <label>Assigned Waiter:</label>
+                    <input type="text" id="table-waiter" value="${table.waiter}">
+                </div>
+                <div class="form-group">
+                    <button onclick="updateTable(${table.id})">Update Table</button>
+                    <button class="cancel" onclick="cancelEdit()">Cancel</button>
+                </div>
+            </form>
             <div class="form-group">
                 <button onclick="startTimer(${table.id})">Start Timer</button> 
                 <button class="cancel" onclick="resetTimer(${table.id})">Reset Timer</button>            

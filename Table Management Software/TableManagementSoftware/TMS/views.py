@@ -127,8 +127,8 @@ def restaurant_layout(request):
     restaurants = list(Restaurant.objects.values())
     employees = list(Employee.objects.values())
     users = list(User.objects.values())
+    form = UpdateTable()
 
-
-    
-    context = {'restaurants': restaurants, 'tables': tables, 'employees': employees, 'users': users}
+    context = {'restaurants': restaurants, 'tables': tables, 'employees': employees, 'users': users, 'form':form}
     return render(request, 'restaurant_layout.html', context)
+
