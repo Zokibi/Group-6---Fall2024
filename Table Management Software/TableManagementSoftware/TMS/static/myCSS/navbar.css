@@ -4,6 +4,8 @@
     top: 0px;
     width: 100%;
     border-bottom: 1px white solid;
+    font-size: x-large;
+    font-weight: 700;
 }
 
 .navbar-collapse{
@@ -14,7 +16,6 @@
 .nav-info{
     display: flex;
     flex-direction: row;
-
 }
 
 @media (max-width: 992px) {
