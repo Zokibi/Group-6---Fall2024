@@ -18,9 +18,6 @@ window.addEventListener('load', function() {
 
     // Initializing empty arrays to hold table data
     var tables = []
-    var restaurants = []
-    var employees = []
-    var users = []
     var names = []
 
     console.log('Tables');
@@ -31,42 +28,40 @@ window.addEventListener('load', function() {
     console.log(employees_json);
     console.log('Users JSON');
     console.log(users_json);
-    console.log('Users');
-    console.log(users);
-
-    
+ 
     users_json.forEach((user) => {
         names.push(user.first_name + ' ' + user.last_name)
     })
 
-    employees_json.forEach((employee) => {
-        employees.push(
-            {name: users.find((user) => user.id == employee.id)}
-        )
-    })
+    console.log('Names');
     console.log(names)
-    console.log(employees)
 
     var iterateX = 0
 
     var x = [100, 550]
-    var y = 80
+    var circle_y = 120
+    var rect_y = 80
 
     tables_json.forEach((element) => {
         if (element.shape =='circle'){
         tables.push({
-            id: element.tableID, type: element.shape, x:x[iterateX], y:y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names, elapsedTime: 0, startTime: 0, isRunning: false})
+            id: element.tableID, type: element.shape, x:x[iterateX], y:circle_y, radius: 40, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names, elapsedTime: 0, startTime: 0, isRunning: false})
+
+            if (x[iterateX] == 100){
+                iterateX += 1;
+            }
+            else if(x[iterateX] == 550){
+                iterateX = 0;
+                circle_y += 100;
+            }
+
         }else if (element.shape == 'rect'){
             tables.push({
-                id: element.tableID, type: element.shape, x:300, y:y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names, elapsedTime: 0, startTime: 0, isRunning: false})
+                id: element.tableID, type: element.shape, x:300, y:rect_y, width: 120, height: 60, status: element.table_status, seats: element.seats, guests: element.guests, waiter: choices = names, elapsedTime: 0, startTime: 0, isRunning: false})
+            
+            rect_y += 100;
         }
-        if (x[iterateX] == 100){
-            iterateX += 1
-        }
-        else if(x[iterateX] == 550){
-            iterateX = 0
-            y += 100
-        }
+        
         
     });
 
@@ -121,6 +116,7 @@ window.addEventListener('load', function() {
         tooltip.dataset.tableId = table.id; // Store table ID for comparison in updateTimer
     
         tooltip.innerHTML = `
+            Table ID: ${table.id}<br>
             Seats: ${table.seats}<br>
             Guests: ${table.guests}<br>
             Assigned waiter: ${table.waiter}<br>
@@ -149,7 +145,7 @@ window.addEventListener('load', function() {
         shape.stroke('#000');
         selectedShape = shape;
         layer.draw();
-
+        
         // Create editor form
         editorContent.innerHTML = `
             <form method="POST" action="{% url 'layout' %}">
@@ -167,7 +163,8 @@ window.addEventListener('load', function() {
                 </div>
                 <div class="form-group">
                     <label>Assigned Waiter:</label>
-                    <input type="text" id="table-waiter" value="${table.waiter}">
+                    <select id="table-waiter">
+                    </select>
                 </div>
                 <div class="form-group">
                     <button onclick="updateTable(${table.id})">Update Table</button>
@@ -179,6 +176,14 @@ window.addEventListener('load', function() {
                 <button class="cancel" onclick="resetTimer(${table.id})">Reset Timer</button>            
             </div>
         `;
+        var select = document.getElementById('table-waiter');
+
+        names.forEach((name) => {
+            var option = document.createElement("option");
+            option.textContent = name;
+            option.value = name;
+            select.appendChild(option)
+        })
     }
 
     // Global functions for the editor
