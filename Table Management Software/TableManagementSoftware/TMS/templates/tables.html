@@ -9,19 +9,47 @@ Table Page
 {% block content %}
 <div class="wrapper-menu wrapper-alt menu-display">
     <table>
-        <th colspan="3"><h3>Tables</h3></th>
+        <th colspan="5"><h3>Tables</h3></th>
         <tr>
             <th class="column_headers">Restaurant Name</th>
             <th class="column_headers">Table ID</th>
+            <th class="column_headers">Table Shape</th>
             <th class="column_headers">Number of Seats</th>
+            <th class="column_headers">Delete Table</th>
         </tr>
         {% for table in tables %}
         <tr>
             <td class="left-column">{{table.restaurant.name}}</td>
             <td>{{table.tableID}}</td>
+            <td>{{table.shape}}</td>
             <td class="right-column">{{table.seats}}</td>
+            <td class="delete_cell"><a href="{% url 'deletetable' tableID=table.tableID %}" class="delete_button">X</a></td>
         </tr>       
         {% endfor %}
     </table>
 </div>
+<div class="wrapper-menu wrapper-alt">
+    <form method="POST" action="{% url 'table' %}">
+        {% csrf_token %}
+        <h1>Add Table</h1>
+        <div class="input-field">
+            <label for="id_shape">Shape: </label>
+            {{form.shape}}
+        </div>
+        <div class="input-field">
+            <label for="id_seats">Number of Chairs: </label>
+            {{form.seats}}
+        </div>
+        <div class="input-field">
+            <label for="id_restaurant">Restaurant: </label>
+            {{form.restaurant}}
+        </div>
+        <div>
+            <button style="width:600px; height: 60px; font-size: 40px;">Submit</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
+
+{% block script %}
+{% endblock script %}

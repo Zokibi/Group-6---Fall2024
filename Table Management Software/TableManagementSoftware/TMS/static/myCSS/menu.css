@@ -73,7 +73,6 @@ th{
 }
 
 td{
-    width: 300px;
     text-align: center;
 }
 
@@ -88,6 +87,17 @@ table tr:nth-child(odd){
 
 table tr:nth-child(even){
     background-color: rgb(100, 100, 100);
+}
+
+.delete_button {
+  height: 25px;
+  width: 25px;
+  font-size: 20px;
+}
+.delete_cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 1000px), (max-height: 1000px) {

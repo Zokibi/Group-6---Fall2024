@@ -67,14 +67,9 @@ class SaveRestaurantProfile(forms.ModelForm):
                   'class': 'form-input',
                   'style': 'background-color: transparent; border: 1px white solid; border-radius: 5px; font-size: 20px; color: white'
             })
-            self.fields['numTables'].widget.attrs.update({
-                  'placeholder': ' Number of Tables',
-                  'class': 'form-input',
-                  'style': 'background-color: transparent; border: 1px white solid; border-radius: 5px; font-size: 20px; color: white'
-            })
       class Meta:
             model = Restaurant
-            fields = ['name', 'numTables']
+            fields = ['name']
 
 class AddMenuItem(forms.ModelForm):
      def __init__(self, *args, **kwargs):
@@ -93,7 +88,13 @@ class AddMenuItem(forms.ModelForm):
            model = Item
            fields = ['itemName', 'price']
 
-class TableUpdateForm(forms.ModelForm):
+class AddTable(forms.ModelForm):
      class Meta:
-          model: Table
-          fields = ['table_status','guests', 'employee']
+           model = Table
+           fields = ['tableID','shape', 'seats', 'restaurant']
+
+class EmployeeForm(forms.ModelForm):
+      class Meta:
+            model = Employee
+            fields = ['role']
+

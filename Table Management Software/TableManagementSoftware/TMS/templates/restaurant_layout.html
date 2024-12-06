@@ -6,8 +6,9 @@
 {% block styles %}
 <link rel="stylesheet" href="{% static 'myCss/styles.css' %}">
 {% endblock styles %}
-
+{% csrf_token%}
 {% block content %}
+
 <div id="container">
     <div id="loading">Loading...</div>
     <div class="controls">
@@ -19,12 +20,21 @@
             </div>
         </div>
     </div>
-    <div id="stage-container"></div>
+    <div id="stage-container">
+    </div>
     <div id="tooltip"></div>
 </div>
+
+
 {% endblock %}
 
 {% block script %}
+
 <script src="https://unpkg.com/konva@9.3.3/konva.min.js"></script>
 <script src="{% static 'js/floorPlanHandler.js' %}"></script>
+{{tables|json_script:"tables_json"}}
+{{restaurants|json_script:"restaurants_json"}}
+{{employees|json_script:"employees_json"}}
+{{users|json_script:"users_json"}}
+
 {% endblock script %}

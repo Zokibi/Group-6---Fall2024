@@ -1,10 +1,11 @@
-from django.shortcuts import render, HttpResponse
-from django.shortcuts import render, redirect
-from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core import serializers
+
 
 from .forms import *
 
@@ -29,22 +30,28 @@ def login_view(request):
             form = CreateLoginForm()
     return render(request, 'login.html', {'form': form})
 
+@receiver(post_save, sender=User)
+def create_emploeyee(sender, instance, created, **kwargs):
+    if created:
+        Employee.objects.create(user=instance)
+
 def signup_view(request):
     form = CreateUserForm()
+    form2 = EmployeeForm()
 
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
+        form2 = EmployeeForm(request.POST)
 
         username = request.POST['username']
         email = request.POST['email']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
 
-        if form.is_valid():
+        if form.is_valid() and form2.is_valid():
             login(request, form.save())
             uname = form.cleaned_data.get('username')
             messages.success(request, 'Account created for user ' + uname)
-            user = User.objects.get(username=uname)
         else:
             if password1 != password2:
                 messages.info(request, 'Passwords do not match')
@@ -53,7 +60,7 @@ def signup_view(request):
             elif User.objects.filter(email=email).exists():
                 messages.info(request, 'Email already in use')
             form = CreateUserForm()
-    return render(request, 'sign_up.html', {'form':form})  # Render sign-up page on GET request
+    return render(request, 'sign_up.html', {'form':form, 'form2': form2})  # Render sign-up page on GET request
 
 def logout_view(request):
     logout(request)
@@ -75,6 +82,10 @@ def menu_view(request):
             return redirect(request.path)
     return render(request, "menu.html", {'item': item, 'form': form})
 
+def delete_item(request, itemID):
+    Item.objects.get(itemID = itemID).delete()
+    return redirect(menu_view)
+
 def restaurant_view(request):
     form = SaveRestaurantProfile()
     restaurants = Restaurant.objects.all()
@@ -88,9 +99,35 @@ def restaurant_view(request):
             return redirect(request.path)
     return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
 
+
 def table_view(request):
+    form = AddTable()
     tables = Table.objects.all()
-    return render(request, 'tables.html', {'tables': tables})
+
+    if request.method =='POST':
+        form = AddTable(request.POST)
+
+        id = request.POST['restaurant']
+        r = Restaurant.objects.get(id=id)
+        specific_tables = Table.objects.filter(restaurant = id)
+        
+        if form.is_valid and specific_tables.count() <= r.numTables:
+            form.save()
+            r.numTables = specific_tables.count()
+            r.save()
+            return redirect(request.path)
+    return render(request, 'tables.html', {'tables': tables, 'form': form})
+
+def delete_table(request, tableID):
+    Table.objects.get(tableID = tableID).delete()
+    return redirect(table_view)
 
 def restaurant_layout(request):
-    return render(request, 'restaurant_layout.html')
+    tables = list(Table.objects.values())
+    restaurants = list(Restaurant.objects.values())
+    employees = list(Employee.objects.values())
+    users = list(User.objects.values())
+
+    context = {'restaurants': restaurants, 'tables': tables, 'employees': employees, 'users': users}
+    return render(request, 'restaurant_layout.html', context)
+
