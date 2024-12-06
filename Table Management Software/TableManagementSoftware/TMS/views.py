@@ -69,6 +69,7 @@ def logout_view(request):
 def about_view(request):
     return render(request, "about.html")
 
+@login_required
 def menu_view(request):
     form = AddMenuItem()
     item  = Item.objects.all()
@@ -86,6 +87,7 @@ def delete_item(request, itemID):
     Item.objects.get(itemID = itemID).delete()
     return redirect(menu_view)
 
+@login_required
 def restaurant_view(request):
     form = SaveRestaurantProfile()
     restaurants = Restaurant.objects.all()
@@ -99,7 +101,7 @@ def restaurant_view(request):
             return redirect(request.path)
     return render(request, 'restaurant.html', {'restaurants': restaurants, 'form': form})
 
-
+@login_required
 def table_view(request):
     form = AddTable()
     tables = Table.objects.all()
@@ -122,6 +124,7 @@ def delete_table(request, tableID):
     Table.objects.get(tableID = tableID).delete()
     return redirect(table_view)
 
+@login_required
 def restaurant_layout(request):
     tables = list(Table.objects.values())
     restaurants = list(Restaurant.objects.values())
