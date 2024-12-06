@@ -215,18 +215,16 @@ window.addEventListener('load', function() {
     
         const formattedTime = `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     
-        // Only update the tooltip if it's currently displayed
-        if (tooltip.style.display === 'block') {
-            const hoveredTableId = tooltip.dataset.tableId;
-            if (hoveredTableId == tableId) {
-                tooltip.innerHTML = `
-                    Seats: ${table.seats}<br>
-                    Guests: ${table.guests}<br>
-                    Assigned waiter: ${table.waiter}<br>
-                    Status: ${table.status}<br>
-                    Timer: ${formattedTime}<br>
-                `;
-            }
+        // Only update the tooltip if it's currently displayed and for the correct table
+        if (tooltip.style.display === 'block' && tooltip.dataset.tableId == tableId) {
+            tooltip.innerHTML = `
+                Table ID: ${table.id}<br>
+                Seats: ${table.seats}<br>
+                Guests: ${table.guests}<br>
+                Assigned waiter: ${table.waiter}<br>
+                Status: ${table.status}<br>
+                Timer: ${formattedTime}<br>
+            `;
         }
     }
     
